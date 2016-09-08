@@ -1,0 +1,99 @@
+<!doctype html>
+<!--
+	作者：offline
+	时间：2016-03-10
+	描述：注册模板
+-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="网站描述.">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>注册模板</title>
+
+		<!-- 安卓设备的Chrome添加到桌面的图标 -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+		<!-- iOS设备的Safari添加到桌面的图标 -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="导航的空模板">
+		<link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+		<!-- Win8的标题图片(144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+		<meta name="msapplication-TileColor" content="#3372DF">
+
+		<link rel="shortcut icon" href="images/favicon.png">
+
+		<link rel="stylesheet" href="../../../vendor/uui/assets/fonts/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../../vendor/uui/css/u.css">
+		<link rel="stylesheet" href="styles.css">
+	</head>
+
+	<body>
+		<div class="demo-login">
+			<div class="demo-brand">
+				<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" style="
+                width: 24px; height: 24px;">
+					<path d="M 50 0 L 100 14 L 92 80 Z" fill="rgba(139, 195, 74, 0.5)"></path>
+					<path d="M 92 80 L 50 0 L 50 100 Z" fill="rgba(139, 195, 74, 0.8)"></path>
+					<path d="M 8 80 L 50 0 L 50 100 Z" fill="#fff"></path>
+					<path d="M 50 0 L 8 80 L 0 14 Z" fill="rgba(255, 255, 255, 0.6)"></path>
+				</svg>
+				<span class="demo-brand-name">产品名称</span>
+			</div>
+			<div class="demo-login-square u-row u-shadow-2dp">
+				<div class="demo-login-title">
+					注册产品名称账号
+				</div>
+				<form action="#">
+					<div class="demo-input u-text u-label-floating" u-meta='{"type":"u-text","data":"regdt","field":"email"}'>
+						<input class="u-input" type="text" pattern="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" id="sample3" >
+						<label class="u-label" for="sample3">邮箱</label>
+						<span class="u-error">邮箱格式不正确!</span>
+					</div>
+
+					<div class="demo-input u-text u-label-floating" u-meta='{"type":"u-text","data":"regdt","field":"password"}'>
+						<input class="u-input" type="password" pattern="^\w+$" id="sample4">
+						<label class="u-label" for="sample4">密码</label>
+						<span class="u-error">只能包含数字、字母、下划线</span>
+					</div>
+
+					<!-- 加入新字段“性别”
+					<label  class="u-radio" for="option-1" u-meta='{"type":"u-text","data":"regdt","field":"gender"}'>
+					    <input type="radio" id="option-1" class="u-radio-button" name="options" value="male" >
+					    <span class="u-radio-label">男</span>
+					</label>
+					<label class="u-radio" for="option-2" u-meta='{"type":"u-radio","data":"logindt","field":"gender"}'>
+					    <input type="radio" id="option-2" class="u-radio-button" name="options" value="female">
+					    <span class="u-radio-label">女</span>
+					</label>
+					-->
+
+					<div class="demo-input-remember" u-meta='{"type":"u-text","data":"regdt","field":"acceptAgree"}'>
+						<label for="chkbox1" class="u-checkbox">
+							<input type="checkbox" id="chkbox1" class="u-checkbox-input">
+							<span class="u-checkbox-label">阅读并接受相关协议</span>
+						</label>
+					</div>
+					<button class="u-button raised accent demo-login-btn" data-bind="click: registerClick">注册</button>
+				</form>
+			</div>
+			<div class="demo-login-other">
+				<div class="demo-login-other-item-register">
+					已有账号
+					<a href="../login/login.html" class="u-button white">登录</a>
+				</div>
+			</div>
+
+			<script src="../../../vendor/knockout/knockout-3.2.0.debug.js"></script>
+			<script src="../../../vendor/uui/js/u-polyfill.js"></script>
+			<script src="../../../vendor/uui/js/u.js"></script>
+			<script src="register.js"></script>
+	</body>
+
+</html>
