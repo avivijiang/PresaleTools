@@ -39,43 +39,46 @@ import com.yonyou.iuap.system.service.AccountService;
 @RequestMapping(value = "/mgr/account")
 public class MgrAccountController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired
 	private AccountService service;
-	
+
 	@Autowired
 	private Validator validator;
-	
+
 	@RequestMapping(value = "page", method = RequestMethod.GET)
-	public @ResponseBody Page<MgrUser> page(@RequestParam(value = "page", defaultValue = "1") int pageNumber, @RequestParam(value = "page.size", defaultValue = "20") int pageSize, @RequestParam(value = "sortType", defaultValue = "auto") String sortType, Model model, ServletRequest request) {
+	public @ResponseBody Page<MgrUser> page(@RequestParam(value = "page", defaultValue = "1") int pageNumber,
+			@RequestParam(value = "page.size", defaultValue = "20") int pageSize,
+			@RequestParam(value = "sortType", defaultValue = "auto") String sortType, Model model,
+			ServletRequest request) {
 		Map<String, Object> searchParams = new HashMap<String, Object>();
-		
-		//构造综合的查询条件
-	    searchParams = Servlets.getParametersStartingWith(request, "search_");
-	    
-	    //构造分页
+
+		// 构造综合的查询条件
+		searchParams = Servlets.getParametersStartingWith(request, "search_");
+
+		// 构造分页
 		PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, sortType);
-		
-		//调用服务查询分页数据
+
+		// 调用服务查询分页数据
 		Page<MgrUser> accountPage = service.getAccountPage(searchParams, pageRequest);
-		
-		//直接返回page对象，springmvc会将数据格式化成json格式
+
+		// 直接返回page对象，springmvc会将数据格式化成json格式
 		return accountPage;
 	}
-	
-	/** 进入新增 */  
-	@RequestMapping(value="create", method=RequestMethod.GET)  
+
+	/** 进入新增 */
+	@RequestMapping(value = "create", method = RequestMethod.GET)
 	public @ResponseBody MgrUser add() {
 		MgrUser entity = new MgrUser();
 		Long tmpLong = new Long(0);
 		entity.setId(tmpLong);
 		return entity;
 	}
- 
-	/** 保存新增 */  
-    @RequestMapping(value="create", method=RequestMethod.POST)  
-    public @ResponseBody Object create(@RequestBody MgrUser entity, HttpServletRequest resq) {
-    	JSONObject result = new JSONObject();
+
+	/** 保存新增 */
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public @ResponseBody Object create(@RequestBody MgrUser entity, HttpServletRequest resq) {
+		JSONObject result = new JSONObject();
 		try {
 			BeanValidators.validateWithException(validator, entity);
 			entity = service.saveEntity(entity);
@@ -83,20 +86,20 @@ public class MgrAccountController {
 			result.put("flag", 1);
 		} catch (Exception e) {
 			String msg = "保存失败!";
-			if(e instanceof ConstraintViolationException){
-				List<String> vmsg = BeanValidators.extractMessage((ConstraintViolationException)e);
+			if (e instanceof ConstraintViolationException) {
+				List<String> vmsg = BeanValidators.extractMessage((ConstraintViolationException) e);
 				msg += vmsg.toString();
-				
+
 			}
 			result.put("msg", msg);
 			result.put("flag", 0);
-			logger.error("保存出错!",e);
-			
+			logger.error("保存出错!", e);
+
 		}
-        return result;  
-    }  
-    
-    /**
+		return result;
+	}
+
+	/**
 	 * 进入更新界面
 	 * 
 	 * @param id
@@ -108,7 +111,7 @@ public class MgrAccountController {
 		MgrUser entity = service.getUser(id);
 		return entity;
 	}
-	
+
 	/** 保存更新 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public @ResponseBody Object update(@RequestBody MgrUser entity) {
@@ -120,18 +123,19 @@ public class MgrAccountController {
 		} catch (Exception e) {
 			result.put("msg", "保存失败");
 			result.put("flag", 0);
-			logger.error("更新出错!",e);
+			logger.error("更新出错!", e);
 		}
-        return result;  
+		return result;
 	}
-	
+
 	/**
 	 * 删除实体
 	 * 
-	 * @param id 删除的标识
+	 * @param id
+	 *            删除的标识
 	 * @return 是否删除成功
 	 */
-	@RequestMapping(value = "delete/{id}",method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody boolean delete(@PathVariable("id") Long id) {
 		try {
 			service.deleteUser(id);
@@ -141,7 +145,7 @@ public class MgrAccountController {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 创建分页请求.
 	 */
@@ -155,5 +159,3 @@ public class MgrAccountController {
 		return new PageRequest(pageNumber - 1, pagzSize, sort);
 	}
 }
-
-
