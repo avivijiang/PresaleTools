@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yonyou.iuap.project.mapper.sub.SubProjectInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.yonyou.iuap.project.entity.ProjectInfo" >
+    <id column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="isonlysign" property="isonlysign" jdbcType="VARCHAR" />
+    <result column="onelevel_industry" property="onelevelIndustry" jdbcType="VARCHAR" />
+    <result column="increment_product" property="incrementProduct" jdbcType="VARCHAR" />
+    <result column="project_requirements" property="projectRequirements" jdbcType="VARCHAR" />
+    <result column="sales_stage" property="salesStage" jdbcType="VARCHAR" />
+    <result column="expected_signdate" property="expectedSigndate" jdbcType="DATE" />
+    <result column="expected_signsum" property="expectedSignsum" jdbcType="VARCHAR" />
+    <result column="expected_productsum" property="expectedProductsum" jdbcType="VARCHAR" />
+    <result column="project_record" property="projectRecord" jdbcType="VARCHAR" />
+    <result column="next_plan" property="nextPlan" jdbcType="VARCHAR" />
+    <result column="opponent" property="opponent" jdbcType="VARCHAR" />
+    <result column="salesperson" property="salesperson" jdbcType="VARCHAR" />
+    <result column="presale_headquarters" property="presaleHeadquarters" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    project_id, project_name, client_id, user_name, isonlysign, onelevel_industry, increment_product, 
+    project_requirements, sales_stage, expected_signdate, expected_signsum, expected_productsum, 
+    project_record, next_plan, opponent, salesperson, presale_headquarters, remarks
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yonyou.iuap.project.entity.ProjectInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project_info_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from project_info_table
+    where project_id = #{projectId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from project_info_table
+    where project_id = #{projectId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yonyou.iuap.project.entity.ProjectInfoExample" >
+    delete from project_info_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yonyou.iuap.project.entity.ProjectInfo" >
+    insert into project_info_table (project_id, project_name, client_id, 
+      user_name, isonlysign, onelevel_industry, 
+      increment_product, project_requirements, 
+      sales_stage, expected_signdate, expected_signsum, 
+      expected_productsum, project_record, next_plan, 
+      opponent, salesperson, presale_headquarters, 
+      remarks)
+    values (#{projectId,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{clientId,jdbcType=BIGINT}, 
+      #{userName,jdbcType=VARCHAR}, #{isonlysign,jdbcType=VARCHAR}, #{onelevelIndustry,jdbcType=VARCHAR}, 
+      #{incrementProduct,jdbcType=VARCHAR}, #{projectRequirements,jdbcType=VARCHAR}, 
+      #{salesStage,jdbcType=VARCHAR}, #{expectedSigndate,jdbcType=DATE}, #{expectedSignsum,jdbcType=VARCHAR}, 
+      #{expectedProductsum,jdbcType=VARCHAR}, #{projectRecord,jdbcType=VARCHAR}, #{nextPlan,jdbcType=VARCHAR}, 
+      #{opponent,jdbcType=VARCHAR}, #{salesperson,jdbcType=VARCHAR}, #{presaleHeadquarters,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yonyou.iuap.project.entity.ProjectInfo" >
+    insert into project_info_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="isonlysign != null" >
+        isonlysign,
+      </if>
+      <if test="onelevelIndustry != null" >
+        onelevel_industry,
+      </if>
+      <if test="incrementProduct != null" >
+        increment_product,
+      </if>
+      <if test="projectRequirements != null" >
+        project_requirements,
+      </if>
+      <if test="salesStage != null" >
+        sales_stage,
+      </if>
+      <if test="expectedSigndate != null" >
+        expected_signdate,
+      </if>
+      <if test="expectedSignsum != null" >
+        expected_signsum,
+      </if>
+      <if test="expectedProductsum != null" >
+        expected_productsum,
+      </if>
+      <if test="projectRecord != null" >
+        project_record,
+      </if>
+      <if test="nextPlan != null" >
+        next_plan,
+      </if>
+      <if test="opponent != null" >
+        opponent,
+      </if>
+      <if test="salesperson != null" >
+        salesperson,
+      </if>
+      <if test="presaleHeadquarters != null" >
+        presale_headquarters,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isonlysign != null" >
+        #{isonlysign,jdbcType=VARCHAR},
+      </if>
+      <if test="onelevelIndustry != null" >
+        #{onelevelIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="incrementProduct != null" >
+        #{incrementProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="projectRequirements != null" >
+        #{projectRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="salesStage != null" >
+        #{salesStage,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedSigndate != null" >
+        #{expectedSigndate,jdbcType=DATE},
+      </if>
+      <if test="expectedSignsum != null" >
+        #{expectedSignsum,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedProductsum != null" >
+        #{expectedProductsum,jdbcType=VARCHAR},
+      </if>
+      <if test="projectRecord != null" >
+        #{projectRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="nextPlan != null" >
+        #{nextPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="opponent != null" >
+        #{opponent,jdbcType=VARCHAR},
+      </if>
+      <if test="salesperson != null" >
+        #{salesperson,jdbcType=VARCHAR},
+      </if>
+      <if test="presaleHeadquarters != null" >
+        #{presaleHeadquarters,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yonyou.iuap.project.entity.ProjectInfoExample" resultType="java.lang.Integer" >
+    select count(*) from project_info_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update project_info_table
+    <set >
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectName != null" >
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientId != null" >
+        client_id = #{record.clientId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isonlysign != null" >
+        isonlysign = #{record.isonlysign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onelevelIndustry != null" >
+        onelevel_industry = #{record.onelevelIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.incrementProduct != null" >
+        increment_product = #{record.incrementProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectRequirements != null" >
+        project_requirements = #{record.projectRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesStage != null" >
+        sales_stage = #{record.salesStage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expectedSigndate != null" >
+        expected_signdate = #{record.expectedSigndate,jdbcType=DATE},
+      </if>
+      <if test="record.expectedSignsum != null" >
+        expected_signsum = #{record.expectedSignsum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expectedProductsum != null" >
+        expected_productsum = #{record.expectedProductsum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectRecord != null" >
+        project_record = #{record.projectRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextPlan != null" >
+        next_plan = #{record.nextPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opponent != null" >
+        opponent = #{record.opponent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesperson != null" >
+        salesperson = #{record.salesperson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.presaleHeadquarters != null" >
+        presale_headquarters = #{record.presaleHeadquarters,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update project_info_table
+    set project_id = #{record.projectId,jdbcType=BIGINT},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      client_id = #{record.clientId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      isonlysign = #{record.isonlysign,jdbcType=VARCHAR},
+      onelevel_industry = #{record.onelevelIndustry,jdbcType=VARCHAR},
+      increment_product = #{record.incrementProduct,jdbcType=VARCHAR},
+      project_requirements = #{record.projectRequirements,jdbcType=VARCHAR},
+      sales_stage = #{record.salesStage,jdbcType=VARCHAR},
+      expected_signdate = #{record.expectedSigndate,jdbcType=DATE},
+      expected_signsum = #{record.expectedSignsum,jdbcType=VARCHAR},
+      expected_productsum = #{record.expectedProductsum,jdbcType=VARCHAR},
+      project_record = #{record.projectRecord,jdbcType=VARCHAR},
+      next_plan = #{record.nextPlan,jdbcType=VARCHAR},
+      opponent = #{record.opponent,jdbcType=VARCHAR},
+      salesperson = #{record.salesperson,jdbcType=VARCHAR},
+      presale_headquarters = #{record.presaleHeadquarters,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.iuap.project.entity.ProjectInfo" >
+    update project_info_table
+    <set >
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        client_id = #{clientId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isonlysign != null" >
+        isonlysign = #{isonlysign,jdbcType=VARCHAR},
+      </if>
+      <if test="onelevelIndustry != null" >
+        onelevel_industry = #{onelevelIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="incrementProduct != null" >
+        increment_product = #{incrementProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="projectRequirements != null" >
+        project_requirements = #{projectRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="salesStage != null" >
+        sales_stage = #{salesStage,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedSigndate != null" >
+        expected_signdate = #{expectedSigndate,jdbcType=DATE},
+      </if>
+      <if test="expectedSignsum != null" >
+        expected_signsum = #{expectedSignsum,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedProductsum != null" >
+        expected_productsum = #{expectedProductsum,jdbcType=VARCHAR},
+      </if>
+      <if test="projectRecord != null" >
+        project_record = #{projectRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="nextPlan != null" >
+        next_plan = #{nextPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="opponent != null" >
+        opponent = #{opponent,jdbcType=VARCHAR},
+      </if>
+      <if test="salesperson != null" >
+        salesperson = #{salesperson,jdbcType=VARCHAR},
+      </if>
+      <if test="presaleHeadquarters != null" >
+        presale_headquarters = #{presaleHeadquarters,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where project_id = #{projectId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yonyou.iuap.project.entity.ProjectInfo" >
+    update project_info_table
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      isonlysign = #{isonlysign,jdbcType=VARCHAR},
+      onelevel_industry = #{onelevelIndustry,jdbcType=VARCHAR},
+      increment_product = #{incrementProduct,jdbcType=VARCHAR},
+      project_requirements = #{projectRequirements,jdbcType=VARCHAR},
+      sales_stage = #{salesStage,jdbcType=VARCHAR},
+      expected_signdate = #{expectedSigndate,jdbcType=DATE},
+      expected_signsum = #{expectedSignsum,jdbcType=VARCHAR},
+      expected_productsum = #{expectedProductsum,jdbcType=VARCHAR},
+      project_record = #{projectRecord,jdbcType=VARCHAR},
+      next_plan = #{nextPlan,jdbcType=VARCHAR},
+      opponent = #{opponent,jdbcType=VARCHAR},
+      salesperson = #{salesperson,jdbcType=VARCHAR},
+      presale_headquarters = #{presaleHeadquarters,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where project_id = #{projectId,jdbcType=BIGINT}
+  </update>
+</mapper>
