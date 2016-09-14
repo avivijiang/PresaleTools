@@ -12,8 +12,8 @@ public class BaseController {
 		dto.setSuccess(Boolean.TRUE);
 		return dto;
 	}
-	
-	protected ResultDTO success(){
+
+	protected ResultDTO success() {
 		return this.success(null);
 	}
 
@@ -23,6 +23,10 @@ public class BaseController {
 		dto.setMessage(message);
 		dto.setSuccess(Boolean.FALSE);
 		return dto;
+	}
+
+	protected ResultDTO error() {
+		return this.error(null);
 	}
 
 }
