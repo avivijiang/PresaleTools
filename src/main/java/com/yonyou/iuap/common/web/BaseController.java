@@ -12,6 +12,10 @@ public class BaseController {
 		dto.setSuccess(Boolean.TRUE);
 		return dto;
 	}
+	
+	protected ResultDTO success(){
+		return this.success(null);
+	}
 
 	protected ResultDTO error(String message) {
 		ResultDTO dto = new ResultDTO();
