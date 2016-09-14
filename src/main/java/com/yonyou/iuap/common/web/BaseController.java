@@ -1,8 +1,13 @@
 package com.yonyou.iuap.common.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.yonyou.iuap.common.entity.ResultDTO;
 
 public class BaseController {
+
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected ResultDTO success(Object obj) {
 		ResultDTO dto = new ResultDTO();
