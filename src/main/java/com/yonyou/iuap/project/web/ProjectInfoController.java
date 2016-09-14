@@ -36,6 +36,7 @@ public class ProjectInfoController extends BaseController{
 	@ResponseBody
 	public ResultDTO queryAllProjectInfo() {
 		List<ProjectInfo> projectLisr = projectInfoService.queryAllProjectInfo();
+		logger.info("success");
 //		List<SalesCustomers> customersList = saleCustomerService.queryAllSalesCustomers();
 //		List<ProjectWithCustomer> list = new ArrayList<ProjectWithCustomer>();
 //		ProjectWithCustomer prc;
