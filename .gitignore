@@ -2,3 +2,5 @@
 .classpath
 .project
 .settings/*
+.idea/*
+Pre_project_manage.iml
