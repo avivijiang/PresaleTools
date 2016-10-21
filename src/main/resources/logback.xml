@@ -19,7 +19,7 @@
 	<!-- project default level -->
 	<logger name="com.yonyou.iuap" level="INFO" />
 
-	<root level="TRACE">
+	<root level="DEBUG">
 		<appender-ref ref="console" />
 		<appender-ref ref="rollingFile" />
 	</root>
