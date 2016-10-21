@@ -75,6 +75,7 @@ public class MgrAccountController {
 		return entity;
 	}
 
+
 	/** 保存新增 */
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public @ResponseBody Object create(@RequestBody MgrUser entity, HttpServletRequest resq) {
