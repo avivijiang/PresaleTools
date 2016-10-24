@@ -5,10 +5,12 @@ define(['knockout', 'text!./list.html', 'jquery'], function (ko, templateMarkup,
 
         self.userItemList = ko.observableArray([]);
 
+        //修改用户名
         self.editUser = function (chosenData) {
             chosenData.isEditUser(true);
         }
 
+        //修改的保存
         self.saveEdit = function (chosenData) {
             var url = globle_var.ctx + '/mgr/account/update';
             var recieveData = ko.toJS(chosenData);
@@ -54,6 +56,7 @@ define(['knockout', 'text!./list.html', 'jquery'], function (ko, templateMarkup,
         }
     }
 
+    //用户数据模型
     function UserItemViewModel(data) {
         var self = this;
         self.id = ko.observable(data.id);

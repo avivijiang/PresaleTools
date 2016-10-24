@@ -16,6 +16,8 @@ define(['jquery', 'knockout', './router', 'bootstrap', 'knockout-projections'], 
 
   // 用户管理前台页面
   ko.components.register('user-management', { require: 'components/user-management/user-management' });
+  // 增加用户界面
+  ko.components.register('add-user', { require: 'components/user-management/adduser/adduser' });
 
   // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
