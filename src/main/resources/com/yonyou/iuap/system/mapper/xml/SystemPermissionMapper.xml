@@ -208,4 +208,15 @@
       permission_description = #{permissionDescription,jdbcType=VARCHAR}
     where permission_id = #{permissionId,jdbcType=BIGINT}
   </update>
+  
+  <select id="selectByPrimaryUserLoginname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from system_permission
+    where permission_id in (select  rpr.permission_id from role_permission_relation rpr where rpr.role_id in
+    (select r.role_id from user_role_relation r where r.user_id =(select id from system_user_table a where 
+    a.login_name= #{login_name,jdbcType=VARCHAR} ) ) )
+    
+  </select>
+  
 </mapper>
