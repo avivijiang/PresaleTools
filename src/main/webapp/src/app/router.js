@@ -16,27 +16,29 @@ define(["knockout", "crossroads", "hasher"], function (ko, crossroads, hasher) {
             // 用户管理页面
             { url: 'user-management', params: { page: 'user-management' } },
             // 增加用户界面
-            { url: 'user-management/adduser' , params: { page: 'add-user' } },
+            { url: 'user-management/adduser', params: { page: 'add-user' } },
+            // 角色分配权限界面
+            { url: 'role-management', params: { page: 'role-management' } },
         ]
     });
 
-function Router(config) {
-    var currentRoute = this.currentRoute = ko.observable({});
+    function Router(config) {
+        var currentRoute = this.currentRoute = ko.observable({});
 
-    ko.utils.arrayForEach(config.routes, function (route) {
-        crossroads.addRoute(route.url, function (requestParams) {
-            currentRoute(ko.utils.extend(requestParams, route.params));
+        ko.utils.arrayForEach(config.routes, function (route) {
+            crossroads.addRoute(route.url, function (requestParams) {
+                currentRoute(ko.utils.extend(requestParams, route.params));
+            });
         });
-    });
 
-    activateCrossroads();
-}
+        activateCrossroads();
+    }
 
-function activateCrossroads() {
-    function parseHash(newHash, oldHash) { crossroads.parse(newHash); }
-    crossroads.normalizeFn = crossroads.NORM_AS_OBJECT;
-    hasher.initialized.add(parseHash);
-    hasher.changed.add(parseHash);
-    hasher.init();
-}
+    function activateCrossroads() {
+        function parseHash(newHash, oldHash) { crossroads.parse(newHash); }
+        crossroads.normalizeFn = crossroads.NORM_AS_OBJECT;
+        hasher.initialized.add(parseHash);
+        hasher.changed.add(parseHash);
+        hasher.init();
+    }
 });

@@ -3,11 +3,12 @@
 </li>
 <li>
 	性别: 
-	<input type="radio" value="1" name="sex">男<input type="radio" value="0" name="sex">女
+	 <input type="radio" value="1" name="sex" data-bind="checked:sex">男<input type="radio" value="0" name="sex" data-bind="checked:sex">女
 </li>
 <li>
 	联系方式<input data-bind="textInput:tel">
 </li>
 <li>
-	所属地区<select data-bind="options:area">
+	所属地区
+    <select data-bind="options:area">
 </li>
