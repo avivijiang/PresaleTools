@@ -1,10 +1,20 @@
-<h2>Solomon</h2>
+<h2>S1olomon</h2>
 <div class="role-table">
 	<div class="role-left">
 		<ul data-bind="foreach:roleItemList">
-			<li data-bind="text:rolename">
+			<li>
+				<div data-bind="text:roleId,visible:false"></div>
+				<div data-bind="text:roleName,css:{selected: isFocus},hasFocus:isFocus"></div>
+				<button data-bind="click:$parent.deleteRole">×删除</button>
 			</li>
+
 		</ul>
+		<input placeholder="请输入角色名字" data-bind="visible:isAdd,textInput:addRoleName">
+		<textarea placeholder="请输入角色描述" data-bind="visible:isAdd,textInput:roleDescription"></textarea>
+		<button data-bind="visible:isAdd,click:makeSureRole">√</button>
+        <button data-bind="visible:isAdd,click:cancelAddRole">x</button>
+
+		<button data-bind="click:addRole">新增</button>
 	</div>
 
 
