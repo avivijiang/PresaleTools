@@ -1,0 +1,12 @@
+.role-table{
+    width:80%;
+    margin:50px auto;
+    height:400px;
+    background: #dee1e2;
+}
+.role-table .role-left{
+    width:30%;
+    float:left;
+    height:400px;
+    background: #999999;
+}

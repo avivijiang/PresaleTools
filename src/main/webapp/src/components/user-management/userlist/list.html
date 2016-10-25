@@ -3,20 +3,34 @@
 		<thead>
 			<tr>
 				<th>#</th>
-				<th>用户名</th>
+				<th>姓名</th>
 				<th>登录名</th>
-				<th>角色</th>
+				<th>员工状态</th>
 				<th>创建时间</th>
+				<th>动作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<!-- ko foreach:userItemList -->
 			<tr>
 				<td data-bind="text: id"></td>
-				<td data-bind="text: username"></td>
-				<td data-bind="text: loginname"></td>
-				<td data-bind="text: roles"></td>
+				<!-- ko ifnot:isEditUser -->
+				<td data-bind="text: name"></td>
+				<!-- /ko -->
+				<!-- ko if:isEditUser -->
+				<td style="width:158px;"><input style="width:140px;" data-bind="textInput: name"></td>
+				<!-- /ko -->
+				<td data-bind="text: loginName"></td>
+				<td data-bind="text: status"></td>
 				<td data-bind="text: registerDate"></td>
+				<td>
+					<!-- ko ifnot:isEditUser -->
+					<button data-bind="click: $parent.editUser">修改</button>
+					<!-- /ko -->
+					<!-- ko if:isEditUser -->
+					<button data-bind="click: $parent.saveEdit">提交</button>
+					<!-- /ko -->
+				</td>
 			</tr>
 			<!-- /ko -->
 		</tbody>
