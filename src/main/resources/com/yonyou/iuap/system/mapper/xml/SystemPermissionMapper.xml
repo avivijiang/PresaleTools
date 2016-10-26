@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yonyou.iuap.system.mapper.SystemPermissionMapper" >
+<mapper namespace="com.yonyou.iuap.system.mapper.sub.SubSystemPermissionMapper" >
   <resultMap id="BaseResultMap" type="com.yonyou.iuap.system.entity.SystemPermission" >
     <id column="permission_id" property="permissionId" jdbcType="BIGINT" />
     <result column="permission_parent" property="permissionParent" jdbcType="VARCHAR" />
@@ -208,4 +208,6 @@
       permission_description = #{permissionDescription,jdbcType=VARCHAR}
     where permission_id = #{permissionId,jdbcType=BIGINT}
   </update>
+  
+  
 </mapper>

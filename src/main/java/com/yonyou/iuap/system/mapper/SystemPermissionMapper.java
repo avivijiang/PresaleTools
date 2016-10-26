@@ -27,4 +27,6 @@ public interface SystemPermissionMapper {
     int updateByPrimaryKeySelective(SystemPermission record);
 
     int updateByPrimaryKey(SystemPermission record);
+    
+    List<SystemPermission> selectByPrimaryUserLoginname(String login_name);
 }

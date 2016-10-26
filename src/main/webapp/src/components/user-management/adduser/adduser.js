@@ -1,3 +1,4 @@
+
 define(['knockout', 'text!./adduser.html', 'jquery', 'select2', 'validate'], function (ko, templateMarkup, $) {
 
     function AddUserViewModel(params) {

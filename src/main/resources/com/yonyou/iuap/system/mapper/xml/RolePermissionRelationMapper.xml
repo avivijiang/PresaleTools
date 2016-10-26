@@ -178,4 +178,5 @@
       permission_id = #{permissionId,jdbcType=BIGINT}
     where role_permission_id = #{rolePermissionId,jdbcType=BIGINT}
   </update>
+  
 </mapper>

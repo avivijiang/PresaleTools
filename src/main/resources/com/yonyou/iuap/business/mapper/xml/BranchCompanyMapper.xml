@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yonyou.iuap.business.mapper.BranchCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.yonyou.iuap.business.entity.BranchCompany" >
+    <id column="branch_id" property="branchId" jdbcType="BIGINT" />
+    <result column="branch_name" property="branchName" jdbcType="VARCHAR" />
+    <result column="branch_description" property="branchDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    branch_id, branch_name, branch_description
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yonyou.iuap.business.entity.BranchCompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from branch_company_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from branch_company_table
+    where branch_id = #{branchId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from branch_company_table
+    where branch_id = #{branchId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yonyou.iuap.business.entity.BranchCompanyExample" >
+    delete from branch_company_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yonyou.iuap.business.entity.BranchCompany" >
+    insert into branch_company_table (branch_id, branch_name, branch_description
+      )
+    values (#{branchId,jdbcType=BIGINT}, #{branchName,jdbcType=VARCHAR}, #{branchDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yonyou.iuap.business.entity.BranchCompany" >
+    insert into branch_company_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="branchId != null" >
+        branch_id,
+      </if>
+      <if test="branchName != null" >
+        branch_name,
+      </if>
+      <if test="branchDescription != null" >
+        branch_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="branchId != null" >
+        #{branchId,jdbcType=BIGINT},
+      </if>
+      <if test="branchName != null" >
+        #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchDescription != null" >
+        #{branchDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yonyou.iuap.business.entity.BranchCompanyExample" resultType="java.lang.Integer" >
+    select count(*) from branch_company_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update branch_company_table
+    <set >
+      <if test="record.branchId != null" >
+        branch_id = #{record.branchId,jdbcType=BIGINT},
+      </if>
+      <if test="record.branchName != null" >
+        branch_name = #{record.branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchDescription != null" >
+        branch_description = #{record.branchDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update branch_company_table
+    set branch_id = #{record.branchId,jdbcType=BIGINT},
+      branch_name = #{record.branchName,jdbcType=VARCHAR},
+      branch_description = #{record.branchDescription,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.iuap.business.entity.BranchCompany" >
+    update branch_company_table
+    <set >
+      <if test="branchName != null" >
+        branch_name = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchDescription != null" >
+        branch_description = #{branchDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where branch_id = #{branchId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yonyou.iuap.business.entity.BranchCompany" >
+    update branch_company_table
+    set branch_name = #{branchName,jdbcType=VARCHAR},
+      branch_description = #{branchDescription,jdbcType=VARCHAR}
+    where branch_id = #{branchId,jdbcType=BIGINT}
+  </update>
+</mapper>
