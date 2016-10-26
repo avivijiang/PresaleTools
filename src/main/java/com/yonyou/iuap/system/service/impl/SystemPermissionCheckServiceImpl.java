@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yonyou.iuap.system.entity.SystemPermission;
-import com.yonyou.iuap.system.mapper.SystemPermissionMapper;
+import com.yonyou.iuap.system.mapper.sub.SubSystemPermissionMapper;
 import com.yonyou.iuap.system.service.SystemPermissionCheckService;
 
 /**
@@ -18,7 +18,7 @@ import com.yonyou.iuap.system.service.SystemPermissionCheckService;
 public class SystemPermissionCheckServiceImpl implements SystemPermissionCheckService {
 
 	@Autowired
-	private SystemPermissionMapper systemPermissionMapper;
+	private SubSystemPermissionMapper systemPermissionMapper;
 
 	/**
 	 * 查询当前用户权限
@@ -28,6 +28,17 @@ public class SystemPermissionCheckServiceImpl implements SystemPermissionCheckSe
 	 */
 	public List<SystemPermission> queryUserPermission(String longinName) {
 		List<SystemPermission> systemPermissionList = systemPermissionMapper.selectByPrimaryUserLoginname(longinName);
+		return systemPermissionList;
+	}
+	
+	/**
+	 * 查询用户权限
+	 * 
+	 * @param longinName
+	 * @return
+	 */
+	public List<SystemPermission> queryUserPermissionById(Long userId) {
+		List<SystemPermission> systemPermissionList = systemPermissionMapper.selectByUserId(userId);
 		return systemPermissionList;
 	}
 

@@ -98,10 +98,10 @@ public class SystemRoleController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequiresPermissions(value={"role:updata"})
+	@RequiresPermissions(value={"role:update"})
 	@RequestMapping(value = "/updataRole")
 	@ResponseBody
-	public ResultDTO updataRole(@RequestBody SystemRole systemRole, HttpServletRequest request){
+	public ResultDTO updateRole(@RequestBody SystemRole systemRole, HttpServletRequest request){
 		ResultDTO dto = new ResultDTO();
 		try {
 			systemRoleService.updateByPrimaryKeySelective(systemRole);

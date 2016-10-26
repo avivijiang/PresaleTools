@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yonyou.iuap.common.entity.ResultDTO;
 import com.yonyou.iuap.common.web.BaseController;
+import com.yonyou.iuap.system.dto.RolePermissionRelationDto;
 import com.yonyou.iuap.system.entity.RolePermissionRelation;
 import com.yonyou.iuap.system.service.RolePermissionRelationService;
 
@@ -90,12 +91,37 @@ public class RolePermissionRelationController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/updataRole")
+//	@RequestMapping(value = "/update")
+//	@ResponseBody
+//	public ResultDTO update(@RequestBody RolePermissionRelation rolePermissionRelation, HttpServletRequest request){
+//		ResultDTO dto = new ResultDTO();
+//		try {
+//			rolePermissionRelationService.updateByPrimaryKeySelective(rolePermissionRelation);
+//			dto = super.successNoData("修改成功!");
+//		} catch (Exception e) {
+//			dto = super.error("修改出错!");
+//		}
+//		return dto;
+//	}
+	
+	/**
+	 * 设置角色权限
+	 * @param systemRole
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/update")
 	@ResponseBody
-	public ResultDTO updataRole(@RequestBody RolePermissionRelation rolePermissionRelation, HttpServletRequest request){
+	public ResultDTO update(@RequestBody RolePermissionRelationDto rolePermissionRelationDto, HttpServletRequest request){
 		ResultDTO dto = new ResultDTO();
+		rolePermissionRelationDto.setRoleId((long) 1);
+		Long[] ll = new Long[3];
+		ll[0]=(long) 1;
+		ll[1]=(long) 2;
+		ll[2]=(long) 3;
+		rolePermissionRelationDto.setPermissionIds(ll);
 		try {
-			rolePermissionRelationService.updateByPrimaryKeySelective(rolePermissionRelation);
+			rolePermissionRelationService.update(rolePermissionRelationDto.getRoleId(), rolePermissionRelationDto.getPermissionIds());
 			dto = super.successNoData("修改成功!");
 		} catch (Exception e) {
 			dto = super.error("修改出错!");

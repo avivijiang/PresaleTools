@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.yonyou.iuap.system.entity.SystemRole;
 import com.yonyou.iuap.system.entity.SystemRoleExample;
-import com.yonyou.iuap.system.mapper.SystemRoleMapper;
+import com.yonyou.iuap.system.mapper.sub.SubSystemRoleMapper;
 import com.yonyou.iuap.system.service.SystemRoleService;
 
 /**
@@ -21,7 +21,7 @@ public class SystemRoleServiceImple implements SystemRoleService {
 
 	
 	@Autowired
-	SystemRoleMapper systemRoleMapper;
+	SubSystemRoleMapper systemRoleMapper;
 	
 	/**
 	 * 添加

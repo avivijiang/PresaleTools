@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yonyou.iuap.system.mapper.RolePermissionRelationMapper" >
-  <resultMap id="BaseResultMap" type="com.yonyou.iuap.system.entity.RolePermissionRelation" >
-    <id column="role_permission_id" property="rolePermissionId" jdbcType="BIGINT" />
-    <result column="role_id" property="roleId" jdbcType="BIGINT" />
-    <result column="permission_id" property="permissionId" jdbcType="BIGINT" />
+<mapper namespace="com.yonyou.iuap.business.mapper.RegionInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.yonyou.iuap.business.entity.RegionInfo" >
+    <id column="region_id" property="regionId" jdbcType="BIGINT" />
+    <result column="region_name" property="regionName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    role_permission_id, role_id, permission_id
+    region_id, region_name, create_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yonyou.iuap.system.entity.RolePermissionRelationExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yonyou.iuap.business.entity.RegionInfoExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from role_permission_relation
+    from region_table
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,67 +84,67 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from role_permission_relation
-    where role_permission_id = #{rolePermissionId,jdbcType=BIGINT}
+    from region_table
+    where region_id = #{regionId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from role_permission_relation
-    where role_permission_id = #{rolePermissionId,jdbcType=BIGINT}
+    delete from region_table
+    where region_id = #{regionId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.yonyou.iuap.system.entity.RolePermissionRelationExample" >
-    delete from role_permission_relation
+  <delete id="deleteByExample" parameterType="com.yonyou.iuap.business.entity.RegionInfoExample" >
+    delete from region_table
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yonyou.iuap.system.entity.RolePermissionRelation" >
-    insert into role_permission_relation (role_permission_id, role_id, permission_id
+  <insert id="insert" parameterType="com.yonyou.iuap.business.entity.RegionInfo" >
+    insert into region_table (region_id, region_name, create_time
       )
-    values (#{rolePermissionId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT}
+    values (#{regionId,jdbcType=BIGINT}, #{regionName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yonyou.iuap.system.entity.RolePermissionRelation" >
-    insert into role_permission_relation
+  <insert id="insertSelective" parameterType="com.yonyou.iuap.business.entity.RegionInfo" >
+    insert into region_table
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="rolePermissionId != null" >
-        role_permission_id,
+      <if test="regionId != null" >
+        region_id,
       </if>
-      <if test="roleId != null" >
-        role_id,
+      <if test="regionName != null" >
+        region_name,
       </if>
-      <if test="permissionId != null" >
-        permission_id,
+      <if test="createTime != null" >
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="rolePermissionId != null" >
-        #{rolePermissionId,jdbcType=BIGINT},
+      <if test="regionId != null" >
+        #{regionId,jdbcType=BIGINT},
       </if>
-      <if test="roleId != null" >
-        #{roleId,jdbcType=BIGINT},
+      <if test="regionName != null" >
+        #{regionName,jdbcType=VARCHAR},
       </if>
-      <if test="permissionId != null" >
-        #{permissionId,jdbcType=BIGINT},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yonyou.iuap.system.entity.RolePermissionRelationExample" resultType="java.lang.Integer" >
-    select count(*) from role_permission_relation
+  <select id="countByExample" parameterType="com.yonyou.iuap.business.entity.RegionInfoExample" resultType="java.lang.Integer" >
+    select count(*) from region_table
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update role_permission_relation
+    update region_table
     <set >
-      <if test="record.rolePermissionId != null" >
-        role_permission_id = #{record.rolePermissionId,jdbcType=BIGINT},
+      <if test="record.regionId != null" >
+        region_id = #{record.regionId,jdbcType=BIGINT},
       </if>
-      <if test="record.roleId != null" >
-        role_id = #{record.roleId,jdbcType=BIGINT},
+      <if test="record.regionName != null" >
+        region_name = #{record.regionName,jdbcType=VARCHAR},
       </if>
-      <if test="record.permissionId != null" >
-        permission_id = #{record.permissionId,jdbcType=BIGINT},
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -152,31 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update role_permission_relation
-    set role_permission_id = #{record.rolePermissionId,jdbcType=BIGINT},
-      role_id = #{record.roleId,jdbcType=BIGINT},
-      permission_id = #{record.permissionId,jdbcType=BIGINT}
+    update region_table
+    set region_id = #{record.regionId,jdbcType=BIGINT},
+      region_name = #{record.regionName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.iuap.system.entity.RolePermissionRelation" >
-    update role_permission_relation
+  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.iuap.business.entity.RegionInfo" >
+    update region_table
     <set >
-      <if test="roleId != null" >
-        role_id = #{roleId,jdbcType=BIGINT},
+      <if test="regionName != null" >
+        region_name = #{regionName,jdbcType=VARCHAR},
       </if>
-      <if test="permissionId != null" >
-        permission_id = #{permissionId,jdbcType=BIGINT},
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where role_permission_id = #{rolePermissionId,jdbcType=BIGINT}
+    where region_id = #{regionId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yonyou.iuap.system.entity.RolePermissionRelation" >
-    update role_permission_relation
-    set role_id = #{roleId,jdbcType=BIGINT},
-      permission_id = #{permissionId,jdbcType=BIGINT}
-    where role_permission_id = #{rolePermissionId,jdbcType=BIGINT}
+  <update id="updateByPrimaryKey" parameterType="com.yonyou.iuap.business.entity.RegionInfo" >
+    update region_table
+    set region_name = #{regionName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where region_id = #{regionId,jdbcType=BIGINT}
   </update>
-  
 </mapper>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yonyou.iuap.system.entity.SystemPermission;
 import com.yonyou.iuap.system.entity.SystemPermissionExample;
-import com.yonyou.iuap.system.mapper.SystemPermissionMapper;
+import com.yonyou.iuap.system.mapper.sub.SubSystemPermissionMapper;
 import com.yonyou.iuap.system.service.SystemPermissionService;
 
 /**
@@ -19,7 +19,7 @@ import com.yonyou.iuap.system.service.SystemPermissionService;
 public class SystemPermissionServiceImpl implements SystemPermissionService{
 	
 	@Autowired
-	SystemPermissionMapper systemPermissionMapper;
+	SubSystemPermissionMapper systemPermissionMapper;
 	
 	/**
 	 * 添加
