@@ -114,12 +114,6 @@ public class RolePermissionRelationController extends BaseController {
 	@ResponseBody
 	public ResultDTO update(@RequestBody RolePermissionRelationDto rolePermissionRelationDto, HttpServletRequest request){
 		ResultDTO dto = new ResultDTO();
-		rolePermissionRelationDto.setRoleId((long) 1);
-		Long[] ll = new Long[3];
-		ll[0]=(long) 1;
-		ll[1]=(long) 2;
-		ll[2]=(long) 3;
-		rolePermissionRelationDto.setPermissionIds(ll);
 		try {
 			rolePermissionRelationService.update(rolePermissionRelationDto.getRoleId(), rolePermissionRelationDto.getPermissionIds());
 			dto = super.successNoData("修改成功!");

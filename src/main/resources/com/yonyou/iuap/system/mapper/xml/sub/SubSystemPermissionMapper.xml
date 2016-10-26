@@ -15,13 +15,22 @@
 	</select>
 	
 	<select id="selectByUserId" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+		parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
 		from system_permission
 		where permission_id in (select rpr.permission_id from
 		role_permission_relation rpr where rpr.role_id in
 		(select r.role_id from user_role_relation r where r.user_id = #{userId,jdbcType=BIGINT} ) )
+	</select>
+	
+	<select id="selectByRoleId" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from system_permission
+		where permission_id in (select rpr.permission_id from
+		role_permission_relation rpr where rpr.role_id =#{roleId,jdbcType=BIGINT} )
 	</select>
 	
 	

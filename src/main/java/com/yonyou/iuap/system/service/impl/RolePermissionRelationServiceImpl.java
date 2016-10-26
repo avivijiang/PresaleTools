@@ -80,7 +80,7 @@ public class RolePermissionRelationServiceImpl implements RolePermissionRelation
 			rolePermissionRelation.setPermissionId(permissionId);
 			rprList.add(rolePermissionRelation);
 		}
-		
+		//添加角色和权限关系
 		rolePermissionRelationMapper.addBatch(rprList);
 	}
 

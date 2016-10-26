@@ -8,4 +8,6 @@ public interface SystemPermissionCheckService {
 
 	public List<SystemPermission> queryUserPermission(String longinName);
 	
+	public List<SystemPermission> queryPermissionByRoleId(Long roleId);
+	
 }

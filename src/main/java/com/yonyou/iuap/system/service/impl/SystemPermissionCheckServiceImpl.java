@@ -32,13 +32,13 @@ public class SystemPermissionCheckServiceImpl implements SystemPermissionCheckSe
 	}
 	
 	/**
-	 * 查询用户权限
+	 * 查询角色的权限
 	 * 
 	 * @param longinName
 	 * @return
 	 */
-	public List<SystemPermission> queryUserPermissionById(Long userId) {
-		List<SystemPermission> systemPermissionList = systemPermissionMapper.selectByUserId(userId);
+	public List<SystemPermission> queryPermissionByRoleId(Long roleId) {
+		List<SystemPermission> systemPermissionList = systemPermissionMapper.selectByRoleId(roleId);
 		return systemPermissionList;
 	}
 

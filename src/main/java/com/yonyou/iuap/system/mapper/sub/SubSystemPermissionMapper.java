@@ -10,5 +10,7 @@ public interface SubSystemPermissionMapper extends SystemPermissionMapper {
 	List<SystemPermission> selectByPrimaryUserLoginname(String login_name);
 	
 	List<SystemPermission> selectByUserId(Long userId);
+	
+	List<SystemPermission> selectByRoleId(Long roleId);
 
 }
