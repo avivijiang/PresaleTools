@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yonyou.iuap.common.entity.ResultDTO;
 import com.yonyou.iuap.common.web.BaseController;
 import com.yonyou.iuap.system.entity.SystemPermission;
+import com.yonyou.iuap.system.service.SystemPermissionCheckService;
 import com.yonyou.iuap.system.service.SystemPermissionService;
 
 /**
@@ -32,14 +34,17 @@ public class SystemPermissionController  extends BaseController {
 	@Autowired
 	private SystemPermissionService systemPermissionService;
 	
+	@Autowired
+	private SystemPermissionCheckService systemPermissionCheckService;
+	
 	/**
 	 * 查询
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/queryRole", method = RequestMethod.GET)
+	@RequestMapping(value = "/query", method = RequestMethod.GET)
 	@ResponseBody
-	public ResultDTO queryRole(HttpServletRequest request) {
+	public ResultDTO query(HttpServletRequest request) {
 		List<SystemPermission> systemPermissionLisr;
 		try {
 			systemPermissionLisr = systemPermissionService.selectByExample();
@@ -105,6 +110,24 @@ public class SystemPermissionController  extends BaseController {
 			dto = super.error("修改出错!");
 		}
 		return dto;
+	}
+	
+	/**
+	 * 按用户主键查询当前用户的所有权限
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/queryId/{roleId}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultDTO queryId(@PathVariable("roleId") Long roleId ,HttpServletRequest request) {
+		List<SystemPermission> systemPermissionLisr;
+		try {
+			systemPermissionLisr = systemPermissionCheckService.queryPermissionByRoleId(roleId);
+			return super.success(systemPermissionLisr);
+		} catch (Exception e) {
+			logger.error("查询出错!");
+			return super.error("查询出错!");
+		}
 	}
 	
 }

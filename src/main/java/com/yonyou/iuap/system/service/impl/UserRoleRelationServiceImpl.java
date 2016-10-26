@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yonyou.iuap.system.entity.UserRoleRelation;
 import com.yonyou.iuap.system.entity.UserRoleRelationExample;
-import com.yonyou.iuap.system.mapper.UserRoleRelationMapper;
+import com.yonyou.iuap.system.mapper.sub.SubUserRoleRelationMapper;
 import com.yonyou.iuap.system.service.UserRoleRelationService;
 
 /**
@@ -19,7 +19,7 @@ import com.yonyou.iuap.system.service.UserRoleRelationService;
 public class UserRoleRelationServiceImpl implements UserRoleRelationService {
 
 	@Autowired
-	UserRoleRelationMapper userRoleRelationMapper;
+	SubUserRoleRelationMapper userRoleRelationMapper;
 	
 	/**
 	 * 添加用户角色关系

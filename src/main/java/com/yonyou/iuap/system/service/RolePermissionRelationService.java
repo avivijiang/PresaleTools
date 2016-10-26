@@ -14,4 +14,6 @@ public interface RolePermissionRelationService {
 	
 	public void deleteByExample(RolePermissionRelation rolePermissionRelation)throws Exception;
 	
+	public void update(Long roleId,Long[] permissionIds)throws Exception;
+	
 }
