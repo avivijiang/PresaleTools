@@ -1,12 +1,21 @@
 .role-table{
-    width:80%;
+    width:90%;
     margin:50px auto;
+    background:#eeeeee;
     height:400px;
-    background: #dee1e2;
 }
 .role-table .role-left{
     width:30%;
     float:left;
-    height:400px;
-    background: #999999;
+    background: #dddddd;
+   
+}
+.role-table .role-right{
+    width:70%;
+    float:right;
+  
+}
+.selected{
+    background: #8778ff;
+    color:#333333;
 }

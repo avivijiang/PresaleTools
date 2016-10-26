@@ -1,21 +1,49 @@
 <h2>S1olomon</h2>
 <div class="role-table">
 	<div class="role-left">
-		<ul data-bind="foreach:roleItemList">
-			<li>
-				<div data-bind="text:roleId,visible:false"></div>
-				<div data-bind="text:roleName,css:{selected: isFocus},hasFocus:isFocus"></div>
-				<button data-bind="click:$parent.deleteRole">×删除</button>
-			</li>
+		<table class="table table-hover" data-bind="foreach:roleItemList">
+			<tr>
+				<td data-bind="css: { selected: $data == $parent.chosenFolderId() },
+                   click: $parent.goToFolder">
+					<div data-bind="text:roleId,visible:false"></div>
+					<span data-bind="text:roleName"></span>
+					<button data-bind="click:$parent.deleteRole,visible:$data == $parent.chosenFolderId()">×删除</button>
+				</td>
+			</tr>
 
-		</ul>
+		</table>
 		<input placeholder="请输入角色名字" data-bind="visible:isAdd,textInput:addRoleName">
 		<textarea placeholder="请输入角色描述" data-bind="visible:isAdd,textInput:roleDescription"></textarea>
 		<button data-bind="visible:isAdd,click:makeSureRole">√</button>
-        <button data-bind="visible:isAdd,click:cancelAddRole">x</button>
+		<button data-bind="visible:isAdd,click:cancelAddRole">x</button>
 
 		<button data-bind="click:addRole">新增</button>
-	</div>
 
+	</div>
+	
+	<div class="role-right">
+		<table class="table table-hover" >
+			<thead>
+				<th>
+					<td>
+						权限
+					</td>
+					<td>
+                        操作
+					</td>
+				</th>
+			</thead>
+			<tbody>
+				<tr data-bind="foreach:permissionList">
+					<td data-bind="text:permissionName">123</td>
+					<span data-bind="text:permissionId,visible:false"></span>
+					<td><input type="checkbox" data-bind="checked:ischosenP"></td>
+				</tr>
+			</tbody>
+		</table>
+		<button data-bind="click:"> 保存</button>
+		<button data-bind="click:"> 还原</button>
+	</div>
+	
 
 </div>
