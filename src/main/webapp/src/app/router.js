@@ -14,7 +14,11 @@ define(["knockout", "crossroads", "hasher"], function (ko, crossroads, hasher) {
             { url: '', params: { page: 'home-page' } },
             { url: 'about', params: { page: 'about-page' } },
             // 用户管理页面
-            { url: 'user-management', params: { page: 'user-management' } }
+            { url: 'user-management', params: { page: 'user-management' } },
+            // 增加用户界面
+            { url: 'user-management/adduser', params: { page: 'add-user' } },
+            // 角色分配权限界面
+            { url: 'role-management', params: { page: 'role-management' } },
         ]
     });
 
