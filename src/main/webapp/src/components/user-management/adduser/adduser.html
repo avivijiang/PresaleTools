@@ -1,13 +1,67 @@
-<li>
-	姓名:<input data-bind="textInput:name">
-</li>
-<li>
-	性别: 
-	<input type="radio" value="1" name="sex">男<input type="radio" value="0" name="sex">女
-</li>
-<li>
-	联系方式<input data-bind="textInput:tel">
-</li>
-<li>
-	所属地区<select data-bind="options:area">
-</li>
+<ol class="breadcrumb">
+	<li><a href="#">当前位置</a></li>
+	<li><a href="#">用户管理</a></li>
+	<li class="active">添加用户</li>
+</ol>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">添加人员</h3>
+	</div>
+	<div class="panel-body">
+		<form class="form-horizontal" id="signupForm" method="get" action="">
+			<div class="form-group">
+				<label for="inputText" class="col-sm-2 control-label">姓名</label>
+				<div class="col-sm-4">
+					<input type="username" class="form-control" id="inputPassword3" placeholder="姓名" data-bind="textInput:addName">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPassword3" class="col-sm-2 control-label" data-bind="textInput:addPassword">密码</label>
+				<div class="col-sm-4">
+					<input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="password" minlength="2" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputEmail" class="col-sm-2 control-label">邮箱</label>
+				<div class="col-sm-4">
+					<input type="email" name="email" class="form-control" id="inputEmail" placeholder="邮箱" email required data-bind="textInput:addEmail">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputNumber" class="col-sm-2 control-label">手机号码</label>
+				<div class="col-sm-4">
+					<input type="number" class="form-control" id="inputNumber" placeholder="手机号码" data-bind="textInput:addTelphone">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputRole" class="col-sm-2 control-label">角色</label>
+				<div class="col-sm-4">
+					<select class=" form-control js-example-basic-single" multiple="multiple" data-bind="options:addRole,optionText:'RoleName',value:RoleId">
+                <!--<option value="AK">售前顾问</option>
+                <option value="HI">售前总监</option>
+                <option value="HI">区域总监</option>
+                <optgroup label="领导"> </optgroup>-->
+                </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputArea" class="col-sm-2 control-label">负责地区</label>
+				<div class="col-sm-4">
+					<select class="form-control  js-example-basic-single" multiple="multiple" data-bind="options:addArea,optionText:'AreaName',value:AreaId">
+                    <!--<option value ="volvo">华南</option>
+                    <option value ="saab">华北</option>
+                    <option value="opel">西北</option>
+                    <option value="audi">东北</option>-->
+              </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-3">
+					<button type="reset" class="btn btn-default">取消</button>
+					<button type="submit" class="btn btn-info" style="margin-left:30px">保存</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<form>
