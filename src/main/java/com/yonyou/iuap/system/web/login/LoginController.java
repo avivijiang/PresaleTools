@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
 
-import com.yonyou.iuap.auth.session.SessionManager;
 import com.yonyou.iuap.auth.shiro.AuthConstants;
 import com.yonyou.iuap.auth.token.ITokenProcessor;
 import com.yonyou.iuap.auth.token.TokenParameter;
@@ -36,9 +35,6 @@ public class LoginController {
 	
 	public static final int HASH_INTERATIONS = 1024;
 	
-    @Autowired
-    private SessionManager sessionManager;
-
 	@Autowired
 	protected AccountService accountService;
 	//为网页版本的登录Controller指定webTokenProcessor 相应的移动的指定为maTokenProcessor

@@ -1,6 +1,7 @@
 package com.yonyou.iuap.system.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,12 @@ import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Clock;
 import org.springside.modules.utils.Encodes;
 
+import com.yonyou.iuap.system.dto.CreateUserDto;
 import com.yonyou.iuap.system.entity.MgrUser;
+import com.yonyou.iuap.system.entity.UserRegionRelation;
+import com.yonyou.iuap.system.entity.UserRoleRelation;
+import com.yonyou.iuap.system.mapper.sub.SubUserRegionRelationMapper;
+import com.yonyou.iuap.system.mapper.sub.SubUserRoleRelationMapper;
 import com.yonyou.iuap.system.repository.MgrUserDao;
 
 @Component
@@ -34,6 +40,12 @@ public class AccountService {
 
 	@Autowired
 	private MgrUserDao userDao;
+	
+	@Autowired
+	private SubUserRoleRelationMapper userRoleRelationMapper;
+	
+	@Autowired
+	private SubUserRegionRelationMapper userRegionRelationMapper;
 	
 	private Clock clock = Clock.DEFAULT;
 
@@ -128,6 +140,65 @@ public class AccountService {
 		}
 		return userDao.save(entity);
 	}
+	
+	/**
+	 * 新增用户
+	 * @param dto
+	 * @param entity
+	 * @return
+	 * @throws SQLException
+	 */
+	@Transactional
+	public MgrUser saveUser(CreateUserDto dto,MgrUser entity) throws SQLException{
+		
+		//用户名已存在
+		if(!selectUserByLoginName(entity.getLoginName())){
+			return null;
+		}
+		
+		entryptPassword(entity);
+		if(0 == entity.getId()){
+			entity.setId(userDao.getNextId());
+			entity.setRegisterDate(clock.getCurrentDate());
+		}
+		MgrUser user = userDao.save(entity);
+		
+		//添加用户角色关系
+		if(dto.getRoleIds().length>0){
+			List<UserRoleRelation> userRoleRelationList = new ArrayList<UserRoleRelation>();
+			UserRoleRelation userRoleRelation ;
+			for (Long roleId : dto.getRoleIds()) {
+				userRoleRelation = new UserRoleRelation();
+				userRoleRelation.setUserId(user.getId());
+				userRoleRelation.setRoleId(roleId);
+				userRoleRelationList.add(userRoleRelation);
+			}
+			userRoleRelationMapper.addBatch(userRoleRelationList);
+		}
+		
+		//添加用户大区关系
+		if(dto.getRegionIds().length>0){
+			List<UserRegionRelation> userRegionRelationList = new ArrayList<UserRegionRelation>();
+			UserRegionRelation userRegionRelation;
+			for (Long regionId : dto.getRegionIds()) {
+				userRegionRelation = new UserRegionRelation();
+				userRegionRelation.setUserId(user.getId());
+				userRegionRelation.setRegionId(regionId);
+				userRegionRelationList.add(userRegionRelation);
+			}
+			userRegionRelationMapper.addBatch(userRegionRelationList);
+		}
+		
+		return user;
+	}
+	public Boolean selectUserByLoginName(String name){
+		MgrUser user = userDao.findByLoginName(name);
+		if(user!=null){
+			return false;
+		}
+		return true;
+	}
+	
 	
 	public void setUserDao(MgrUserDao userDao) {
 		this.userDao = userDao;
