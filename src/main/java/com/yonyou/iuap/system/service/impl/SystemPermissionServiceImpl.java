@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.system.entity.SystemPermission;
 import com.yonyou.iuap.system.entity.SystemPermissionExample;
@@ -25,6 +26,7 @@ public class SystemPermissionServiceImpl implements SystemPermissionService{
 	 * 添加
 	 * @param record
 	 */
+	@Transactional
 	public void insertSelective(SystemPermission record)throws Exception{
 		systemPermissionMapper.insertSelective(record);
 	}
@@ -43,6 +45,7 @@ public class SystemPermissionServiceImpl implements SystemPermissionService{
 	 * 修改
 	 * @param record
 	 */
+	@Transactional
 	public void updateByPrimaryKeySelective(SystemPermission record)throws Exception {
 		systemPermissionMapper.updateByPrimaryKeySelective(record);
 	}
@@ -51,6 +54,7 @@ public class SystemPermissionServiceImpl implements SystemPermissionService{
 	 * 删除
 	 * @param example
 	 */
+	@Transactional
 	public void deleteByExample(SystemPermission systemPermission)throws Exception {
 		SystemPermissionExample example = new SystemPermissionExample();
 		example.createCriteria().andPermissionIdEqualTo(systemPermission.getPermissionId());

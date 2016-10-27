@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.business.entity.ProjectFollow;
 import com.yonyou.iuap.business.entity.ProjectFollowExample;
@@ -25,6 +26,7 @@ public class ProjectFollowServiceImpl implements ProjectFollowService{
 	 * 添加
 	 * @param record
 	 */
+	@Transactional
 	public void insertSelective(ProjectFollow record)throws Exception{
 		projectFollowMapper.insertSelective(record);
 	}
@@ -43,6 +45,7 @@ public class ProjectFollowServiceImpl implements ProjectFollowService{
 	 * 修改
 	 * @param record
 	 */
+	@Transactional
 	public void updateByPrimaryKeySelective(ProjectFollow record)throws Exception {
 		projectFollowMapper.updateByPrimaryKeySelective(record);
 	}
@@ -51,6 +54,7 @@ public class ProjectFollowServiceImpl implements ProjectFollowService{
 	 * 删除
 	 * @param example
 	 */
+	@Transactional
 	public void deleteByExample(ProjectFollow record)throws Exception {
 		ProjectFollowExample example = new ProjectFollowExample();
 		example.createCriteria().andFollowIdEqualTo(record.getFollowId());

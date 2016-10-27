@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.system.entity.UserRoleRelation;
 import com.yonyou.iuap.system.entity.UserRoleRelationExample;
@@ -25,6 +26,7 @@ public class UserRoleRelationServiceImpl implements UserRoleRelationService {
 	 * 添加用户角色关系
 	 * @param userRoleRelation
 	 */
+	@Transactional
 	public void insertSelective(UserRoleRelation record)throws Exception{
 		userRoleRelationMapper.insertSelective(record);
 	}
@@ -45,6 +47,7 @@ public class UserRoleRelationServiceImpl implements UserRoleRelationService {
 	 * @param record
 	 * @throws Exception
 	 */
+	@Transactional
 	public void updateByPrimaryKeySelective(UserRoleRelation record)throws Exception {
 		userRoleRelationMapper.updateByPrimaryKeySelective(record);
 	}
@@ -54,6 +57,7 @@ public class UserRoleRelationServiceImpl implements UserRoleRelationService {
 	 * @param userRoleRelation
 	 * @throws Exception
 	 */
+	@Transactional
 	public void  deleteByExample(UserRoleRelation userRoleRelation)throws Exception {
 		UserRoleRelationExample example = new UserRoleRelationExample();
 		example.createCriteria().andRoleIdEqualTo(userRoleRelation.getRoleId());

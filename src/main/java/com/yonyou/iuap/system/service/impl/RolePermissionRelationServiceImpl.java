@@ -27,6 +27,7 @@ public class RolePermissionRelationServiceImpl implements RolePermissionRelation
 	 * 添加
 	 * @param record
 	 */
+	@Transactional
 	public void insertSelective(RolePermissionRelation record)throws Exception{
 		rolePermissionRelationMapper.insertSelective(record);
 	}
@@ -74,14 +75,16 @@ public class RolePermissionRelationServiceImpl implements RolePermissionRelation
 		example.createCriteria().andRoleIdEqualTo(roleId);
 		rolePermissionRelationMapper.deleteByExample(example);
 		RolePermissionRelation rolePermissionRelation ;
-		for (Long permissionId : permissionIds) {
-			rolePermissionRelation = new RolePermissionRelation();
-			rolePermissionRelation.setRoleId(roleId);
-			rolePermissionRelation.setPermissionId(permissionId);
-			rprList.add(rolePermissionRelation);
+		if(permissionIds.length>0){
+			for (Long permissionId : permissionIds) {
+				rolePermissionRelation = new RolePermissionRelation();
+				rolePermissionRelation.setRoleId(roleId);
+				rolePermissionRelation.setPermissionId(permissionId);
+				rprList.add(rolePermissionRelation);
+			}
+			//添加角色和权限关系
+			rolePermissionRelationMapper.addBatch(rprList);
 		}
-		//添加角色和权限关系
-		rolePermissionRelationMapper.addBatch(rprList);
 	}
 
 }

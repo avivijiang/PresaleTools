@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.business.entity.CustomerInfo;
 import com.yonyou.iuap.business.entity.CustomerInfoExample;
@@ -25,6 +26,7 @@ public class CustomerInfoServiceImpl implements CustomerInfoService{
 	 * 添加
 	 * @param record
 	 */
+	@Transactional
 	public void insertSelective(CustomerInfo record)throws Exception{
 		customerInfoMapper.insertSelective(record);
 	}
@@ -43,6 +45,7 @@ public class CustomerInfoServiceImpl implements CustomerInfoService{
 	 * 修改
 	 * @param record
 	 */
+	@Transactional
 	public void updateByPrimaryKeySelective(CustomerInfo record)throws Exception {
 		customerInfoMapper.updateByPrimaryKeySelective(record);
 	}
@@ -51,6 +54,7 @@ public class CustomerInfoServiceImpl implements CustomerInfoService{
 	 * 删除
 	 * @param example
 	 */
+	@Transactional
 	public void deleteByExample(CustomerInfo customerInfo)throws Exception {
 		CustomerInfoExample example = new CustomerInfoExample();
 		example.createCriteria().andCustomerIdEqualTo(customerInfo.getCustomerId());

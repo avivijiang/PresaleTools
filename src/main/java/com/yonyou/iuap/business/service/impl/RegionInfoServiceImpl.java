@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.business.entity.RegionInfo;
 import com.yonyou.iuap.business.entity.RegionInfoExample;
@@ -26,6 +27,7 @@ public class RegionInfoServiceImpl implements RegionInfoService{
 	 * 添加
 	 * @param record
 	 */
+	@Transactional
 	public void insertSelective(RegionInfo record)throws Exception{
 		regionInfoMapper.insertSelective(record);
 	}
@@ -44,6 +46,7 @@ public class RegionInfoServiceImpl implements RegionInfoService{
 	 * 修改
 	 * @param record
 	 */
+	@Transactional
 	public void updateByPrimaryKeySelective(RegionInfo record)throws Exception {
 		regionInfoMapper.updateByPrimaryKeySelective(record);
 	}
@@ -52,6 +55,7 @@ public class RegionInfoServiceImpl implements RegionInfoService{
 	 * 删除
 	 * @param example
 	 */
+	@Transactional
 	public void deleteByExample(RegionInfo record)throws Exception {
 		RegionInfoExample example = new RegionInfoExample();
 		example.createCriteria().andRegionIdEqualTo(record.getRegionId());
