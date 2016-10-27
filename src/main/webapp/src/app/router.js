@@ -19,6 +19,7 @@ define(["knockout", "crossroads", "hasher"], function (ko, crossroads, hasher) {
             { url: 'user-management/adduser', params: { page: 'add-user' } },
             // 角色分配权限界面
             { url: 'role-management', params: { page: 'role-management' } },
+            { url: 'project-view', params: { page: 'project-view' } },
         ]
     });
 

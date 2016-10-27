@@ -194,6 +194,8 @@ define(['knockout', 'text!./rolelist.html', 'jquery'], function (ko, templateMar
                 }
             });
         }
+
+    //    $('.checkbox').checkboxpicker();
     }
     //角色数据模型
     function RoleItemViewModel(data) {

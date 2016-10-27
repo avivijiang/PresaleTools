@@ -35,7 +35,7 @@
 		<input class="form-control" placeholder="请输入角色名字" data-bind="visible:isAdd,textInput:addRoleName">
 		<textarea class="form-control" rows="3" placeholder="请输入角色描述" data-bind="visible:isAdd,textInput:roleDescription"></textarea>
 		<button style="float:right" class="btn btn-default btn-xs" data-bind="visible:isAdd,click:cancelAddRole"><span class="glyphicon glyphicon-remove"></span></button>
-		<button style="float:right" class="btn btn-primary btn-xs" data-bind="visible:isAdd,click:makeSureRole"><span class="glyphicon glyphicon-ok"></span></button>
+		<button style="float:right" class="btn btn-primary btn-xs" data-bind="visible:isAdd,click:makeSureRole,disable:(addRoleName()==''||addRoleName==null)"><span class="glyphicon glyphicon-ok"></span></button>
 
 		<button  class="btn btn-primary btn-sm" data-bind="click:addRole">新增</button>
 
@@ -56,7 +56,9 @@
 				<tr>
 					<td data-bind="text:permissionName"></td>
 					<td data-bind="text:permissionId,visible:false"></td>
-					<td><input type="checkbox" data-bind="checked:ischosenP"></td>
+					<td><!--input type="checkbox" class="checkbox" data-switch-always data-bind="checked:ischosenP"-->
+					    <input type="checkbox" data-bind="checked:ischosenP"> 
+					</td>
 				</tr>
 			</tbody>
 		</table>
