@@ -20,6 +20,27 @@ define(['knockout', 'text!./rolelist.html', 'jquery'], function (ko, templateMar
         self.goToFolder = function (folder) {
             self.chosenFolderId(folder);
             self.chosenRoleId(folder.roleId());
+            //选择条目时查询相应的权限
+            var url = globle_var.ctx + '/sysPermission/queryId/' + folder.roleId();
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                success: function (data) {
+                    var permissionList = self.permissionList(),
+                        hasPermissionIdCache = [];
+                    $.each(data.data, function (i, v) {
+                        hasPermissionIdCache.push(v.permissionId);
+                    });
+                    $.each(permissionList, function (index, value) {
+                        if ($.inArray(value.permissionId(), hasPermissionIdCache) !== -1) {
+                            value.ischosenP(true);
+                        } else {
+                            value.ischosenP(false);
+                        }
+                    });
+                }
+            });
         };
 
 
@@ -89,24 +110,75 @@ define(['knockout', 'text!./rolelist.html', 'jquery'], function (ko, templateMar
 
         }
 
+        //保存权限设置
+        self.setPermission = function () {
+            var permissionList = self.permissionList();
+            var pList = ko.observableArray([]);
+            $.each(permissionList, function (index, value) {
+                if (value.ischosenP() == true) {
+                    pList.push(value.permissionId());
+                }
+            });
+            var url = globle_var.ctx + '/rolePermissionRelation/update';
+            var pdata = {
+                "roleId": self.chosenRoleId(),
+                "permissionIds": pList(),
 
+            };
+            var postdata = JSON.stringify(pdata);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: postdata,
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.code == '200') {
+                        alert("设置成功");
+                    }
+                }
+            });
+        };
+        //还原权限
+        self.resetPermission = function () {
+            var url = globle_var.ctx + '/sysPermission/queryId/' + self.chosenRoleId();
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                success: function (data) {
+                    var permissionList = self.permissionList(),
+                        hasPermissionIdCache = [];
+                    $.each(data.data, function (i, v) {
+                        hasPermissionIdCache.push(v.permissionId);
+                    });
+                    $.each(permissionList, function (index, value) {
+                        if ($.inArray(value.permissionId(), hasPermissionIdCache) !== -1) {
+                            value.ischosenP(true);
+                        } else {
+                            value.ischosenP(false);
+                        }
+                    });
+                }
+            });
+        }
         //读取权限信息
-        /*
+
         loadPermission();
         function loadPermission() {
-            var url = globle_var.ctx;
+            var url = globle_var.ctx + '/sysPermission/query';
             $.ajax({
                 type: 'GET',
                 url: url,
                 dataType: 'json',
                 success: function (data) {
                     $.each(data.data, function (index, value) {
-                        self.permissionList.push(new PermissionViewMode(value));
+                        self.permissionList.push(new PermissionViewModel(value));
                     });
                 }
             });
         }
-        */
+
         //读取角色信息
         loadRoleData();
         function loadRoleData() {
@@ -134,8 +206,8 @@ define(['knockout', 'text!./rolelist.html', 'jquery'], function (ko, templateMar
     //权限数据模型
     function PermissionViewModel(data) {
         var self = this;
-        self.permissionId = ko.observable();
-        self.permissionName = ko.observable();
+        self.permissionId = ko.observable(data.permissionId);
+        self.permissionName = ko.observable(data.permissionName);
         self.ischosenP = ko.observable();
 
     }

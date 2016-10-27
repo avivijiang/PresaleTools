@@ -1,19 +1,39 @@
 .role-table{
-    width:90%;
+    width:100%;
     margin:50px auto;
-    background:#eeeeee;
+    background:#ffffff;
     height:400px;
+    border: 1px solid #dee1e2;
+    border-radius: 2px ;
 }
 .role-table .role-left{
+    padding:0 10px;
     width:30%;
     float:left;
-    background: #dddddd;
-   
+    font-size:16px;
+    height:400px;
+    background:#eeeeee;
+    border:1px solid #dee1e2;
+}
+.role-table .role-left table{
+    border-bottom:1px solid #dee1e2; 
 }
 .role-table .role-right{
+    padding:0 50px;
     width:70%;
     float:right;
   
+}
+.delete-role{
+    line-height: 22px;
+    float: right;
+    color:#ff3030;
+}
+.delete-role:hover{
+   color:#ff6666;
+}
+.delete-role:active{
+    color: #ff0000;
 }
 .selected{
     background: #8778ff;
