@@ -10,5 +10,7 @@ import com.yonyou.iuap.business.mapper.ProjectInformationMapper;
 public interface SubProjectInformationMapper extends ProjectInformationMapper{
 
 	List<ProjectInfoVO> queryPage(@Param("index") int index,@Param("pageSize") int pageSize,@Param("regionId") long regionId);
+	
+	ProjectInfoVO queryByProjectId(@Param("projectId") long projectId);
 
 }

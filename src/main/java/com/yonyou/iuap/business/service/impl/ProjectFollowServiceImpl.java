@@ -1,5 +1,6 @@
 package com.yonyou.iuap.business.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.business.entity.ProjectFollow;
 import com.yonyou.iuap.business.entity.ProjectFollowExample;
+import com.yonyou.iuap.business.entity.ProjectInformation;
 import com.yonyou.iuap.business.mapper.sub.SubProjectFollowMapper;
+import com.yonyou.iuap.business.mapper.sub.SubProjectInformationMapper;
 import com.yonyou.iuap.business.service.ProjectFollowService;
 
 /**
@@ -22,13 +25,22 @@ public class ProjectFollowServiceImpl implements ProjectFollowService{
 	@Autowired
 	private SubProjectFollowMapper projectFollowMapper;
 	
+	@Autowired
+	private SubProjectInformationMapper projectInformationMapper;
+	
 	/**
 	 * 添加
 	 * @param record
 	 */
 	@Transactional
 	public void insertSelective(ProjectFollow record)throws Exception{
+		//添加跟进数据
+		record.setCreateTime(new Date());
 		projectFollowMapper.insertSelective(record);
+		//更新项目信息
+		ProjectInformation projectInformation = projectInformationMapper.selectByPrimaryKey(record.getProjectId());
+		projectInformation.setSalesStage(record.getSalesStage());
+		projectInformationMapper.updateByPrimaryKeySelective(projectInformation);
 	}
 	
 	/**
@@ -61,5 +73,4 @@ public class ProjectFollowServiceImpl implements ProjectFollowService{
 //		example.createCriteria().andFollowIdIn(values);
 		projectFollowMapper.deleteByExample(example);
 	}
-	
 }
