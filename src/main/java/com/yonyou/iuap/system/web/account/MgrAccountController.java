@@ -9,11 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 
-import net.sf.json.JSONObject;
-
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,8 +29,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springside.modules.beanvalidator.BeanValidators;
 import org.springside.modules.web.Servlets;
 
+import com.yonyou.iuap.system.dto.CreateUserDto;
 import com.yonyou.iuap.system.entity.MgrUser;
 import com.yonyou.iuap.system.service.AccountService;
+
+import net.sf.json.JSONObject;
 
 /**
  * 用户管理示例，项目不能直接使用，需要按照自己的需求修改！
@@ -164,4 +166,43 @@ public class MgrAccountController {
 		}
 		return new PageRequest(pageNumber - 1, pagzSize, sort);
 	}
+	
+	/** 保存新增 */
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+	public @ResponseBody Object add(@RequestBody CreateUserDto dto, HttpServletRequest resq) {
+		JSONObject result = new JSONObject();
+		try {
+			MgrUser mgrUser = new MgrUser();
+			BeanUtils.copyProperties(dto, mgrUser);
+			mgrUser.setPlainPassword(dto.getPassword());
+			mgrUser.setSalt(dto.getPassword());
+			mgrUser.setId((long) 0);
+			BeanValidators.validateWithException(validator, mgrUser);
+			mgrUser = service.saveUser(dto, mgrUser);
+			if(mgrUser == null){
+				result.put("message", "保存失败，用户名已存在!");
+				result.put("code", "401");
+				result.put("success", Boolean.FALSE);
+				return result;
+			}
+			result.put("message", "保存成功");
+			result.put("code", "200");
+			result.put("success", Boolean.TRUE);
+		} catch (Exception e) {
+			String msg = "保存失败!";
+			if (e instanceof ConstraintViolationException) {
+				List<String> vmsg = BeanValidators.extractMessage((ConstraintViolationException) e);
+				msg += vmsg.toString();
+
+			}
+			result.put("message", msg);
+			result.put("code", "500");
+			result.put("success", Boolean.FALSE);
+			logger.error("保存出错!", e);
+
+		}
+		return result;
+	}
+	
+	
 }

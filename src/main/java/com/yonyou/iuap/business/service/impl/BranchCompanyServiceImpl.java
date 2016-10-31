@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.business.entity.BranchCompany;
 import com.yonyou.iuap.business.entity.BranchCompanyExample;
@@ -25,6 +26,7 @@ public class BranchCompanyServiceImpl implements BranchCompanyService{
 	 * 添加
 	 * @param record
 	 */
+	@Transactional
 	public void insertSelective(BranchCompany record)throws Exception{
 		branchCompanyMapper.insertSelective(record);
 	}
@@ -43,6 +45,7 @@ public class BranchCompanyServiceImpl implements BranchCompanyService{
 	 * 修改
 	 * @param record
 	 */
+	@Transactional
 	public void updateByPrimaryKeySelective(BranchCompany record)throws Exception {
 		branchCompanyMapper.updateByPrimaryKeySelective(record);
 	}
@@ -51,6 +54,7 @@ public class BranchCompanyServiceImpl implements BranchCompanyService{
 	 * 删除
 	 * @param example
 	 */
+	@Transactional
 	public void deleteByExample(BranchCompany customerInfo)throws Exception {
 		BranchCompanyExample example = new BranchCompanyExample();
 		example.createCriteria().andBranchIdEqualTo(customerInfo.getBranchId());
