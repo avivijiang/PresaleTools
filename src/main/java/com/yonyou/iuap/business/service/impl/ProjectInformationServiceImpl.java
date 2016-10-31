@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.business.dto.PageList;
+import com.yonyou.iuap.business.dto.ProjectDetailDto;
 import com.yonyou.iuap.business.dto.ProjectInformationDto;
 import com.yonyou.iuap.business.entity.BranchcompanyProjectRelation;
 import com.yonyou.iuap.business.entity.BranchcompanyProjectRelationExample;
 import com.yonyou.iuap.business.entity.CustomerProjectRelation;
 import com.yonyou.iuap.business.entity.CustomerProjectRelationExample;
+import com.yonyou.iuap.business.entity.ProjectFollow;
 import com.yonyou.iuap.business.entity.ProjectFollowExample;
 import com.yonyou.iuap.business.entity.ProjectInfoVO;
 import com.yonyou.iuap.business.entity.ProjectInformation;
@@ -178,13 +180,24 @@ public class ProjectInformationServiceImpl implements ProjectInformationService 
 	}
 	
 	/**
-	 * 增加项目跟进数据
+	 * 查询详情
+	 * @param projectId
+	 * @return
 	 * @throws Exception
 	 */
-	@Transactional
-	public void addProcess()throws Exception{
-		
+	public ProjectDetailDto queryDetail(Long projectId)throws Exception{
+		ProjectDetailDto dto = new ProjectDetailDto();
+		//查询
+		ProjectInfoVO projectInfoVO = projectInformationMapper.queryByProjectId(projectId);
+		ProjectFollowExample example = new ProjectFollowExample();
+		example.createCriteria().andProjectIdEqualTo(projectId);
+		List<ProjectFollow> list = projectFollowMapper.selectByExample(example);
+		dto.setListProjectFollow(list);
+		dto.setProjectInfoVO(projectInfoVO);
+		return dto;
 	}
+	
+	
 	
 	/* 校验数据 */
 	public String checkData(ProjectInformationDto dto){

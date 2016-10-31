@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yonyou.iuap.business.dto.PageList;
+import com.yonyou.iuap.business.dto.ProjectDetailDto;
 import com.yonyou.iuap.business.dto.ProjectInformationDto;
 import com.yonyou.iuap.business.service.ProjectInformationService;
 import com.yonyou.iuap.common.entity.ResultDTO;
@@ -91,7 +92,7 @@ public class ProjectInfomationController extends BaseController {
 	}
 
 	/**
-	 * 修改
+	 * 删除
 	 * 
 	 * @param request
 	 * @return
@@ -109,7 +110,30 @@ public class ProjectInfomationController extends BaseController {
 				resultDTO = super.errorData("请选择要删除的项目");
 			}
 		} catch (Exception e) {
-			return super.error("保存失败！");
+			return super.error("删除失败！");
+		}
+		return resultDTO;
+	}
+	
+	/**
+	 * 查询详情
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public ResultDTO detail(HttpServletRequest request,
+			@RequestParam(value = "projectId", defaultValue = "0") long projectId) {
+		ResultDTO resultDTO = new ResultDTO();
+		try {
+			if(projectId!=0){
+				ProjectDetailDto projectDetailDto = projectInformationService.queryDetail(projectId);
+				resultDTO = super.success(projectDetailDto);
+			}else{
+				resultDTO = super.errorData("请选择项目");
+			}
+		} catch (Exception e) {
+			return super.error("查询失败！");
 		}
 		return resultDTO;
 	}

@@ -3,6 +3,7 @@ var require = {
     baseUrl: ".",
     paths: {
         "bootstrap" :"bower_modules/bootstrap/dist/js/bootstrap.min",
+        "bootstrap-checkbox" :"bower_modules/bootstrap-checkbox/dist/js/bootstrap-checkbox.min",
         "crossroads": "bower_modules/crossroads/dist/crossroads.min",
         "hasher": "bower_modules/hasher/dist/js/hasher.min",
         "jquery": "bower_modules/jquery/dist/jquery",
@@ -18,6 +19,7 @@ var require = {
     shim: {
         "bootstrap": { deps: ["jquery"] },
         "select2": { deps: ["jquery", "css!bower_modules/select2/dist/css/select2"] },
-        "validate": { deps: ['jquery']}
+        "validate": { deps: ['jquery']},
+        "bootstrap-checkbox":{ deps: ['jquery']}
     }
-};
+};

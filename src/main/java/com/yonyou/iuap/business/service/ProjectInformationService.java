@@ -3,6 +3,7 @@ package com.yonyou.iuap.business.service;
 import java.util.List;
 
 import com.yonyou.iuap.business.dto.PageList;
+import com.yonyou.iuap.business.dto.ProjectDetailDto;
 import com.yonyou.iuap.business.dto.ProjectInformationDto;
 import com.yonyou.iuap.business.entity.ProjectInformation;
 
@@ -23,5 +24,7 @@ public interface ProjectInformationService {
 	public void deleteProjectInformation(Long projectId)throws Exception;
 	
 	public void updateProjectInformation(ProjectInformationDto dto)throws Exception;
+	
+	public ProjectDetailDto queryDetail(Long projectId)throws Exception;
 
 }

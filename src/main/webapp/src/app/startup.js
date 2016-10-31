@@ -20,6 +20,8 @@ define(['jquery', 'knockout', './router', 'bootstrap', 'knockout-projections'], 
   ko.components.register('add-user', { require: 'components/user-management/adduser/adduser' });
   // 角色分配权限界面
   ko.components.register('role-management', { require: 'components/role-management/role-management' });
+  // 项目查看界面
+  ko.components.register('project-view', { require: 'components/project-view/project-view' });
 
   // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
