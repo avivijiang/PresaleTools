@@ -3,5 +3,37 @@
 <mapper
 	namespace="com.yonyou.iuap.business.mapper.sub.SubProjectInformationMapper">
 
+	<resultMap id="SubBaseResultMap"
+		type="com.yonyou.iuap.business.dto.ProjectInfoDto">
+		<id column="project_id" property="projectId" jdbcType="BIGINT" />
+		<result column="project_name" property="projectName" jdbcType="VARCHAR" />
+		<result column="is_single" property="isSingle" jdbcType="VARCHAR" />
+		<result column="onelevel_profession" property="onelevelProfession" jdbcType="VARCHAR" />
+		<result column="valueadd_product" property="valueaddProduct" jdbcType="VARCHAR" />
+		<result column="project_requirement" property="projectRequirement" jdbcType="VARCHAR" />
+		<result column="sales_stage" property="salesStage" jdbcType="VARCHAR" />
+		<result column="estimated_time" property="estimatedTime" jdbcType="TIMESTAMP" />
+		<result column="estimated_amount" property="estimatedAmount" jdbcType="VARCHAR" />
+		<result column="product_amount" property="productAmount" jdbcType="VARCHAR" />
+		<result column="competitor" property="competitor" jdbcType="VARCHAR" />
+		<result column="sales_man" property="salesMan" jdbcType="VARCHAR" />
+		<result column="head_sale" property="headSale" jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="branch_name" property="branchName" jdbcType="VARCHAR" />
+    	<result column="region_name" property="regionName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="queryPage" resultMap="SubBaseResultMap" parameterType="com.yonyou.iuap.business.dto.ProjectInfoDto" >
+    select
+    a.*,b.branch_name,d.region_name
+    FROM
+    the_project_table a,branch_company_table b,branchcompany_project_relation c,region_table d,region_branch_relation e
+    WHERE a.project_id=c.project_id AND c.branch_id=b.branch_id AND b.branch_id=e.branch_id AND e.region_id=d.region_id 
+    <if test="regionId != 0" >
+    	AND e.region_id = #{regionId,jdbcType=BIGINT}
+    </if>
+    ORDER BY d.region_name
+    LIMIT #{index,jdbcType=BIGINT},#{pageSize,jdbcType=BIGINT}
+  	</select>
 
 </mapper>

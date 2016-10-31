@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yonyou.iuap.business.dto.PageList;
+import com.yonyou.iuap.business.dto.ProjectInfoDto;
 import com.yonyou.iuap.business.entity.ProjectInformation;
 import com.yonyou.iuap.business.entity.ProjectInformationExample;
 import com.yonyou.iuap.business.mapper.sub.SubProjectInformationMapper;
@@ -60,6 +62,17 @@ public class ProjectInformationServiceImpl implements ProjectInformationService 
 		example.createCriteria().andProjectIdEqualTo(record.getProjectId());
 //		example.createCriteria().andProjectIdIn(values);
 		projectInformationMapper.deleteByExample(example);
+	}
+	
+	/**
+	 * 分页
+	 */
+	public PageList querPage(int index,int pageSize,long regionId)throws Exception {
+		PageList pageList = new PageList();
+		List<ProjectInfoDto> list = projectInformationMapper.queryPage(index, pageSize,regionId);
+		pageList.setPageIndex(0);
+		pageList.setPalist(list);
+		return pageList;
 	}
 	
 }
