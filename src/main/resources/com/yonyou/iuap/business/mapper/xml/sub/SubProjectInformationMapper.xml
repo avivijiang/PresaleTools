@@ -4,9 +4,10 @@
 	namespace="com.yonyou.iuap.business.mapper.sub.SubProjectInformationMapper">
 
 	<resultMap id="SubBaseResultMap"
-		type="com.yonyou.iuap.business.dto.ProjectInfoDto">
+		type="com.yonyou.iuap.business.entity.ProjectInfoVO">
 		<id column="project_id" property="projectId" jdbcType="BIGINT" />
 		<result column="project_name" property="projectName" jdbcType="VARCHAR" />
+		<result column="customer_name" property="customerName" jdbcType="VARCHAR" />
 		<result column="is_single" property="isSingle" jdbcType="VARCHAR" />
 		<result column="onelevel_profession" property="onelevelProfession" jdbcType="VARCHAR" />
 		<result column="valueadd_product" property="valueaddProduct" jdbcType="VARCHAR" />
@@ -23,12 +24,14 @@
     	<result column="region_name" property="regionName" jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<select id="queryPage" resultMap="SubBaseResultMap" parameterType="com.yonyou.iuap.business.dto.ProjectInfoDto" >
+	<select id="queryPage" resultMap="SubBaseResultMap" parameterType="com.yonyou.iuap.business.entity.ProjectInfoVO" >
     select
-    a.*,b.branch_name,d.region_name
+    a.*,b.branch_name,d.region_name,g.customer_name
     FROM
-    the_project_table a,branch_company_table b,branchcompany_project_relation c,region_table d,region_branch_relation e
+    the_project_table a,branch_company_table b,branchcompany_project_relation c,region_table d,region_branch_relation e,
+    customer_project_relation f,customer_table g
     WHERE a.project_id=c.project_id AND c.branch_id=b.branch_id AND b.branch_id=e.branch_id AND e.region_id=d.region_id 
+    AND a.project_id=f.project_id AND f.customer_id=g.customer_id
     <if test="regionId != 0" >
     	AND e.region_id = #{regionId,jdbcType=BIGINT}
     </if>

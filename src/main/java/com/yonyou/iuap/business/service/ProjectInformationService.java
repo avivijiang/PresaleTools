@@ -3,6 +3,7 @@ package com.yonyou.iuap.business.service;
 import java.util.List;
 
 import com.yonyou.iuap.business.dto.PageList;
+import com.yonyou.iuap.business.dto.ProjectInformationDto;
 import com.yonyou.iuap.business.entity.ProjectInformation;
 
 public interface ProjectInformationService {
@@ -16,5 +17,11 @@ public interface ProjectInformationService {
 	public void deleteByExample(ProjectInformation record) throws Exception;
 	
 	public PageList querPage(int index,int pageSize,long regionId)throws Exception;
+	
+	public void insertProjectInformation(ProjectInformationDto dto)throws Exception;
+	
+	public void deleteProjectInformation(Long projectId)throws Exception;
+	
+	public void updateProjectInformation(ProjectInformationDto dto)throws Exception;
 
 }

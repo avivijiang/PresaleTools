@@ -4,12 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yonyou.iuap.business.dto.PageList;
+import com.yonyou.iuap.business.dto.ProjectInformationDto;
 import com.yonyou.iuap.business.service.ProjectInformationService;
 import com.yonyou.iuap.common.entity.ResultDTO;
 import com.yonyou.iuap.common.web.BaseController;
@@ -22,13 +24,14 @@ import com.yonyou.iuap.common.web.BaseController;
  */
 @Controller
 @RequestMapping(value = "/project")
-public class ProjectInfomationController  extends BaseController   {
+public class ProjectInfomationController extends BaseController {
 
 	@Autowired
 	private ProjectInformationService projectInformationService;
 
 	/**
 	 * 分页
+	 * 
 	 * @param request
 	 * @param pageNumber
 	 * @param pageSize
@@ -41,12 +44,74 @@ public class ProjectInfomationController  extends BaseController   {
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
 			@RequestParam(value = "regionId", defaultValue = "1") long regionId) {
 		try {
-			PageList pageList = projectInformationService.querPage(pageNumber,pageSize,regionId);
+			PageList pageList = projectInformationService.querPage(pageNumber, pageSize, regionId);
 			return super.success(pageList);
 		} catch (Exception e) {
 			logger.error("查询出错!");
 			return super.error("查询出错!");
 		}
+	}
+
+	/**
+	 * 新增
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public ResultDTO create(HttpServletRequest request, @RequestBody ProjectInformationDto dto) {
+		ResultDTO resultDTO = new ResultDTO();
+		try {
+			projectInformationService.insertProjectInformation(dto);
+			resultDTO = super.successNoData();
+		} catch (Exception e) {
+			return super.error("保存失败！");
+		}
+		return resultDTO;
+	}
+
+	/**
+	 * 修改
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ResultDTO update(HttpServletRequest request, @RequestBody ProjectInformationDto dto) {
+		ResultDTO resultDTO = new ResultDTO();
+		try {
+			projectInformationService.updateProjectInformation(dto);
+			resultDTO = super.successNoData();
+		} catch (Exception e) {
+			return super.error("保存失败！");
+		}
+		return resultDTO;
+	}
+
+	/**
+	 * 修改
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/del", method = RequestMethod.GET)
+	public ResultDTO delete(HttpServletRequest request,
+			@RequestParam(value = "projectId", defaultValue = "0") long projectId) {
+		ResultDTO resultDTO = new ResultDTO();
+		try {
+			if(projectId!=0){
+				projectInformationService.deleteProjectInformation(projectId);
+				resultDTO = super.successNoData();
+			}else{
+				resultDTO = super.errorData("请选择要删除的项目");
+			}
+		} catch (Exception e) {
+			return super.error("保存失败！");
+		}
+		return resultDTO;
 	}
 
 }
