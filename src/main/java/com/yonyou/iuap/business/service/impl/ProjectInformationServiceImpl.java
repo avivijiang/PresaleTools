@@ -70,8 +70,12 @@ public class ProjectInformationServiceImpl implements ProjectInformationService 
 	public PageList querPage(int index,int pageSize,long regionId)throws Exception {
 		PageList pageList = new PageList();
 		List<ProjectInfoDto> list = projectInformationMapper.queryPage(index, pageSize,regionId);
-		pageList.setPageIndex(0);
+		ProjectInformationExample example = new ProjectInformationExample();
+		int pageNum = projectInformationMapper.countByExample(example);
+		pageList.setPageIndex(index);
 		pageList.setPalist(list);
+		pageList.setPageSize(list.size());
+		pageList.setPageNum(pageNum);
 		return pageList;
 	}
 	
