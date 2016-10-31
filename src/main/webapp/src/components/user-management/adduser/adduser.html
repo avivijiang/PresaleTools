@@ -1,0 +1,58 @@
+<ol class="breadcrumb">
+	<li><a href="#">当前位置</a></li>
+	<li><a href="#">用户管理</a></li>
+	<li class="active">添加用户</li>
+</ol>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">添加人员</h3>
+	</div>
+	<div class="panel-body">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label for="inputText" class="col-sm-2 control-label">姓名</label>
+				<div class="col-sm-4">
+					<input type="username" class="form-control" id="inputPassword3" placeholder="姓名" data-bind="textInput:addName">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPassword3" class="col-sm-2 control-label" >密码</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="inputPassword3" placeholder="密码" name="password" data-bind="textInput:addPassword">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputEmail" class="col-sm-2 control-label">邮箱</label>
+				<div class="col-sm-4">
+					<input type="email" name="email" class="form-control" id="inputEmail" placeholder="邮箱" data-bind="textInput:addEmail">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputNumber" class="col-sm-2 control-label">手机号码</label>
+				<div class="col-sm-4">
+					<input type="number" class="form-control" id="inputNumber" placeholder="手机号码" data-bind="textInput:addTelphone">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputRole" class="col-sm-2 control-label">角色</label>
+				<div class="col-sm-4">
+					<select class="form-control" multiple="multiple" data-bind="roleset: roleIds">
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputArea" class="col-sm-2 control-label">负责地区</label>
+				<div class="col-sm-4">
+					<select class="form-control" multiple="multiple" data-bind="regionset: regionIds">
+                    </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-3">
+					<button type="reset" class="btn btn-default">取消</button>
+					<button class="btn btn-info" style="margin-left:30px" data-bind="click:preServe">保存</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

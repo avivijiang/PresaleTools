@@ -27,4 +27,6 @@ public interface RolePermissionRelationMapper {
     int updateByPrimaryKeySelective(RolePermissionRelation record);
 
     int updateByPrimaryKey(RolePermissionRelation record);
+    
+    int delBatch(Long roleId);
 }

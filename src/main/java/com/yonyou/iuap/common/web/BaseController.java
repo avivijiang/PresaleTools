@@ -17,9 +17,22 @@ public class BaseController {
 		dto.setSuccess(Boolean.TRUE);
 		return dto;
 	}
-
+	
 	protected ResultDTO success() {
 		return this.success(null);
+	}
+	
+	protected ResultDTO successNoData(Object obj) {
+		ResultDTO dto = new ResultDTO();
+		dto.setCode("200");
+		dto.setMessage("success");
+		dto.setData("");
+		dto.setSuccess(Boolean.TRUE);
+		return dto;
+	}
+	
+	protected ResultDTO successNoData(){
+		return this.successNoData(null);
 	}
 
 	protected ResultDTO error(String message) {
@@ -32,6 +45,18 @@ public class BaseController {
 
 	protected ResultDTO error() {
 		return this.error(null);
+	}
+	
+	protected ResultDTO errorData(String message){
+		ResultDTO dto = new ResultDTO();
+		dto.setCode("401");
+		dto.setMessage(message);
+		dto.setSuccess(Boolean.FALSE);
+		return dto;
+	}
+	
+	protected ResultDTO errorData() {
+		return this.errorData(null);
 	}
 
 }

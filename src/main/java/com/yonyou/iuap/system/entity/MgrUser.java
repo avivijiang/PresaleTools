@@ -30,6 +30,7 @@ public class MgrUser implements Serializable {
     private String roles;
     private Date registerDate;
     protected Long id;
+    private String tel;
     private long loginTs;
 
     @Id
@@ -132,4 +133,13 @@ public class MgrUser implements Serializable {
     public long getLoginTs() {
         return loginTs;
     }
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+    
 }
