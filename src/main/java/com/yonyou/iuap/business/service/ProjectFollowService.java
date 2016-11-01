@@ -2,11 +2,12 @@ package com.yonyou.iuap.business.service;
 
 import java.util.List;
 
+import com.yonyou.iuap.business.dto.ProjectFollowRecordDto;
 import com.yonyou.iuap.business.entity.ProjectFollow;
 
 public interface ProjectFollowService {
 
-	public void insertSelective(ProjectFollow record)throws Exception;
+	public String insertSelective(ProjectFollowRecordDto dto, String loginName) throws Exception;
 	
 	public List<ProjectFollow> selectByExample()throws Exception;
 	

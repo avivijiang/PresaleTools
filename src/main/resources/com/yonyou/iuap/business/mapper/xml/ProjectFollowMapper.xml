@@ -1,33 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yonyou.iuap.business.mapper.ProjectFollowMapper" >
-  <resultMap id="BaseResultMap" type="com.yonyou.iuap.business.entity.ProjectFollow" >
-    <id column="follow_id" property="followId" jdbcType="BIGINT" />
-    <result column="project_id" property="projectId" jdbcType="BIGINT" />
-    <result column="sales_stage" property="salesStage" jdbcType="VARCHAR" />
-    <result column="record" property="record" jdbcType="VARCHAR" />
-    <result column="next_step" property="nextStep" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.iuap.business.mapper.ProjectFollowMapper">
+  <resultMap id="BaseResultMap" type="com.yonyou.iuap.business.entity.ProjectFollow">
+    <id column="follow_id" jdbcType="BIGINT" property="followId" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="sales_stage" jdbcType="VARCHAR" property="salesStage" />
+    <result column="record" jdbcType="VARCHAR" property="record" />
+    <result column="next_step" jdbcType="VARCHAR" property="nextStep" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -38,25 +39,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -67,40 +68,278 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    follow_id, project_id, sales_stage, record, next_step, create_time
+  <sql id="Base_Column_List">
+    follow_id, project_id, sales_stage, record, next_step, create_time, creator_name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yonyou.iuap.business.entity.ProjectFollowExample" >
+  <select id="selectByExample" parameterType="com.yonyou.iuap.business.entity.ProjectFollowExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from project_follow_table
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from project_follow_table
     where follow_id = #{followId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from project_follow_table
     where follow_id = #{followId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.yonyou.iuap.business.entity.ProjectFollowExample" >
+  <delete id="deleteByExample" parameterType="com.yonyou.iuap.business.entity.ProjectFollowExample">
     delete from project_follow_table
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yonyou.iuap.business.entity.ProjectFollow" >
+  <insert id="insert" parameterType="com.yonyou.iuap.business.entity.ProjectFollow">
+    insert into project_follow_table (follow_id, project_id, sales_stage, 
+      record, next_step, create_time, 
+      creator_name)
+    values (#{followId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{salesStage,jdbcType=VARCHAR}, 
+      #{record,jdbcType=VARCHAR}, #{nextStep,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creatorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yonyou.iuap.business.entity.ProjectFollow">
+    insert into project_follow_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="followId != null">
+        follow_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="salesStage != null">
+        sales_stage,
+      </if>
+      <if test="record != null">
+        record,
+      </if>
+      <if test="nextStep != null">
+        next_step,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="creatorName != null">
+        creator_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="followId != null">
+        #{followId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="salesStage != null">
+        #{salesStage,jdbcType=VARCHAR},
+      </if>
+      <if test="record != null">
+        #{record,jdbcType=VARCHAR},
+      </if>
+      <if test="nextStep != null">
+        #{nextStep,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yonyou.iuap.business.entity.ProjectFollowExample" resultType="java.lang.Integer">
+    select count(*) from project_follow_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update project_follow_table
+    <set>
+      <if test="record.followId != null">
+        follow_id = #{record.followId,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=BIGINT},
+      </if>
+      <if test="record.salesStage != null">
+        sales_stage = #{record.salesStage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.record != null">
+        record = #{record.record,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextStep != null">
+        next_step = #{record.nextStep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creatorName != null">
+        creator_name = #{record.creatorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update project_follow_table
+    set follow_id = #{record.followId,jdbcType=BIGINT},
+      project_id = #{record.projectId,jdbcType=BIGINT},
+      sales_stage = #{record.salesStage,jdbcType=VARCHAR},
+      record = #{record.record,jdbcType=VARCHAR},
+      next_step = #{record.nextStep,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator_name = #{record.creatorName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.iuap.business.entity.ProjectFollow">
+    update project_follow_table
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="salesStage != null">
+        sales_stage = #{salesStage,jdbcType=VARCHAR},
+      </if>
+      <if test="record != null">
+        record = #{record,jdbcType=VARCHAR},
+      </if>
+      <if test="nextStep != null">
+        next_step = #{nextStep,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorName != null">
+        creator_name = #{creatorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where follow_id = #{followId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yonyou.iuap.business.entity.ProjectFollow">
+    update project_follow_table
+    set project_id = #{projectId,jdbcType=BIGINT},
+      sales_stage = #{salesStage,jdbcType=VARCHAR},
+      record = #{record,jdbcType=VARCHAR},
+      next_step = #{nextStep,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator_name = #{creatorName,jdbcType=VARCHAR}
+    where follow_id = #{followId,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yonyou.iuap.business.entity.ProjectFollow">
+    <id column="follow_id" jdbcType="BIGINT" property="followId" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="sales_stage" jdbcType="VARCHAR" property="salesStage" />
+    <result column="record" jdbcType="VARCHAR" property="record" />
+    <result column="next_step" jdbcType="VARCHAR" property="nextStep" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    follow_id, project_id, sales_stage, record, next_step, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.yonyou.iuap.business.entity.ProjectFollowExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project_follow_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project_follow_table
+    where follow_id = #{followId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from project_follow_table
+    where follow_id = #{followId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yonyou.iuap.business.entity.ProjectFollowExample">
+    delete from project_follow_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yonyou.iuap.business.entity.ProjectFollow">
     insert into project_follow_table (follow_id, project_id, sales_stage, 
       record, next_step, create_time
       )
@@ -108,82 +347,82 @@
       #{record,jdbcType=VARCHAR}, #{nextStep,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yonyou.iuap.business.entity.ProjectFollow" >
+  <insert id="insertSelective" parameterType="com.yonyou.iuap.business.entity.ProjectFollow">
     insert into project_follow_table
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="followId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="followId != null">
         follow_id,
       </if>
-      <if test="projectId != null" >
+      <if test="projectId != null">
         project_id,
       </if>
-      <if test="salesStage != null" >
+      <if test="salesStage != null">
         sales_stage,
       </if>
-      <if test="record != null" >
+      <if test="record != null">
         record,
       </if>
-      <if test="nextStep != null" >
+      <if test="nextStep != null">
         next_step,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="followId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="followId != null">
         #{followId,jdbcType=BIGINT},
       </if>
-      <if test="projectId != null" >
+      <if test="projectId != null">
         #{projectId,jdbcType=BIGINT},
       </if>
-      <if test="salesStage != null" >
+      <if test="salesStage != null">
         #{salesStage,jdbcType=VARCHAR},
       </if>
-      <if test="record != null" >
+      <if test="record != null">
         #{record,jdbcType=VARCHAR},
       </if>
-      <if test="nextStep != null" >
+      <if test="nextStep != null">
         #{nextStep,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yonyou.iuap.business.entity.ProjectFollowExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.yonyou.iuap.business.entity.ProjectFollowExample" resultType="java.lang.Integer">
     select count(*) from project_follow_table
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update project_follow_table
-    <set >
-      <if test="record.followId != null" >
+    <set>
+      <if test="record.followId != null">
         follow_id = #{record.followId,jdbcType=BIGINT},
       </if>
-      <if test="record.projectId != null" >
+      <if test="record.projectId != null">
         project_id = #{record.projectId,jdbcType=BIGINT},
       </if>
-      <if test="record.salesStage != null" >
+      <if test="record.salesStage != null">
         sales_stage = #{record.salesStage,jdbcType=VARCHAR},
       </if>
-      <if test="record.record != null" >
+      <if test="record.record != null">
         record = #{record.record,jdbcType=VARCHAR},
       </if>
-      <if test="record.nextStep != null" >
+      <if test="record.nextStep != null">
         next_step = #{record.nextStep,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null" >
+      <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update project_follow_table
     set follow_id = #{record.followId,jdbcType=BIGINT},
       project_id = #{record.projectId,jdbcType=BIGINT},
@@ -191,32 +430,32 @@
       record = #{record.record,jdbcType=VARCHAR},
       next_step = #{record.nextStep,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.iuap.business.entity.ProjectFollow" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.iuap.business.entity.ProjectFollow">
     update project_follow_table
-    <set >
-      <if test="projectId != null" >
+    <set>
+      <if test="projectId != null">
         project_id = #{projectId,jdbcType=BIGINT},
       </if>
-      <if test="salesStage != null" >
+      <if test="salesStage != null">
         sales_stage = #{salesStage,jdbcType=VARCHAR},
       </if>
-      <if test="record != null" >
+      <if test="record != null">
         record = #{record,jdbcType=VARCHAR},
       </if>
-      <if test="nextStep != null" >
+      <if test="nextStep != null">
         next_step = #{nextStep,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where follow_id = #{followId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yonyou.iuap.business.entity.ProjectFollow" >
+  <update id="updateByPrimaryKey" parameterType="com.yonyou.iuap.business.entity.ProjectFollow">
     update project_follow_table
     set project_id = #{projectId,jdbcType=BIGINT},
       sales_stage = #{salesStage,jdbcType=VARCHAR},
