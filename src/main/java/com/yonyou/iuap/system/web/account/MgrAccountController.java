@@ -29,9 +29,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springside.modules.beanvalidator.BeanValidators;
 import org.springside.modules.web.Servlets;
 
+import com.yonyou.iuap.common.entity.ResultDTO;
+import com.yonyou.iuap.common.web.BaseController;
 import com.yonyou.iuap.system.dto.CreateUserDto;
+import com.yonyou.iuap.system.dto.UserPageDto;
 import com.yonyou.iuap.system.entity.MgrUser;
 import com.yonyou.iuap.system.service.AccountService;
+import com.yonyou.iuap.system.service.SystemUserService;
 
 import net.sf.json.JSONObject;
 
@@ -40,7 +44,7 @@ import net.sf.json.JSONObject;
  */
 @Controller
 @RequestMapping(value = "/mgr/account")
-public class MgrAccountController {
+public class MgrAccountController extends BaseController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
@@ -49,7 +53,10 @@ public class MgrAccountController {
 	@Autowired
 	private Validator validator;
 
-	@RequiresPermissions(value={"user:query"})
+	@Autowired
+	private SystemUserService systemUserService;
+
+	@RequiresPermissions(value = { "user:query" })
 	@RequestMapping(value = "page", method = RequestMethod.GET)
 	public @ResponseBody Page<MgrUser> page(@RequestParam(value = "page", defaultValue = "1") int pageNumber,
 			@RequestParam(value = "page.size", defaultValue = "20") int pageSize,
@@ -79,9 +86,8 @@ public class MgrAccountController {
 		return entity;
 	}
 
-
 	/** 保存新增 */
-	@RequiresPermissions(value={"user:add"})
+	@RequiresPermissions(value = { "user:add" })
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public @ResponseBody Object create(@RequestBody MgrUser entity, HttpServletRequest resq) {
 		JSONObject result = new JSONObject();
@@ -119,7 +125,7 @@ public class MgrAccountController {
 	}
 
 	/** 保存更新 */
-	@RequiresPermissions(value={"user:update"})
+	@RequiresPermissions(value = { "user:update" })
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public @ResponseBody Object update(@RequestBody MgrUser entity, HttpServletRequest resq) {
 		JSONObject result = new JSONObject();
@@ -142,7 +148,7 @@ public class MgrAccountController {
 	 *            删除的标识
 	 * @return 是否删除成功
 	 */
-	@RequiresPermissions(value={"user:delete"})
+	@RequiresPermissions(value = { "user:delete" })
 	@RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody boolean delete(@PathVariable("id") Long id) {
 		try {
@@ -166,7 +172,7 @@ public class MgrAccountController {
 		}
 		return new PageRequest(pageNumber - 1, pagzSize, sort);
 	}
-	
+
 	/** 保存新增 */
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public @ResponseBody Object add(@RequestBody CreateUserDto dto, HttpServletRequest resq) {
@@ -179,7 +185,7 @@ public class MgrAccountController {
 			mgrUser.setId((long) 0);
 			BeanValidators.validateWithException(validator, mgrUser);
 			mgrUser = service.saveUser(dto, mgrUser);
-			if(mgrUser == null){
+			if (mgrUser == null) {
 				result.put("message", "保存失败，用户名已存在!");
 				result.put("code", "401");
 				result.put("success", Boolean.FALSE);
@@ -203,6 +209,25 @@ public class MgrAccountController {
 		}
 		return result;
 	}
-	
-	
+
+	/**
+	 * 
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sortType
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "queryUser", method = RequestMethod.GET)
+	public @ResponseBody ResultDTO queryUserInfo(@RequestParam(value = "pageIndex", defaultValue = "0") int pageIndex,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize, Model model, ServletRequest request) {
+		try {
+			UserPageDto dto = systemUserService.querUserInfoList(pageIndex, pageSize);
+			return super.success(dto);
+		} catch (Exception e) {
+			return super.error("查询错误!");
+		}
+	}
+
 }
