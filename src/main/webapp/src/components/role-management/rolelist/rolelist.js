@@ -11,8 +11,8 @@ define(['knockout', 'text!./rolelist.html', 'jquery'], function (ko, templateMar
         self.permissionList = ko.observableArray([]);
 
         //添加数据
-        self.addRoleName = ko.observable();
-        self.roleDescription = ko.observable();
+        self.addRoleName = ko.observable("");
+        self.roleDescription = ko.observable("");
 
         //选择条目
         self.chosenFolderId = ko.observable();
