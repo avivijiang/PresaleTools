@@ -13,8 +13,8 @@ var require = {
         "text": "bower_modules/requirejs-text/text",
         "select2": "bower_modules/select2/dist/js/select2.full",
         'css': 'bower_modules/require-css/css',
-        'validate': "bower_modules/validate/validate"
-        
+        'validate': "bower_modules/validate/validate",
+        'moment':"bower_modules/moment/moment"
     },
     shim: {
         "bootstrap": { deps: ["jquery"] },
@@ -22,4 +22,4 @@ var require = {
         "validate": { deps: ['jquery']},
         "bootstrap-checkbox":{ deps: ['jquery']}
     }
-};
+};

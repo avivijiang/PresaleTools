@@ -1,4 +1,4 @@
-define(['knockout', 'text!./prolist.html', 'jquery'], function (ko, templateMarkup, $) {
+define(['knockout', 'text!./prolist.html', 'jquery', 'moment'], function (ko, templateMarkup, $, moment) {
 
     function ProListViewModel(params) {
         var self = this;
@@ -8,7 +8,7 @@ define(['knockout', 'text!./prolist.html', 'jquery'], function (ko, templateMark
         self.pageIndex = ko.observable();
         self.pageSize = ko.observable();
         self.pageNum = ko.observable();
-        
+
 
         //显示详情
         self.showDetial = function (chosenData) {
@@ -26,7 +26,7 @@ define(['knockout', 'text!./prolist.html', 'jquery'], function (ko, templateMark
                                 chosenData.nextStepInfo(chosenData.nextStepArray.pop());
                             });
                             chosenData.detailsEnabled(true);
-                            
+
                         }
 
                     }
@@ -81,14 +81,9 @@ define(['knockout', 'text!./prolist.html', 'jquery'], function (ko, templateMark
         self.createT = ko.observable(data.createTime);
 
         self.createTime = ko.computed(function () {
-            var time = new Date(self.createT());
-            var year = time.getFullYear();
-            var month = time.getMonth() + 1;
-            var day = time.getDate();
-            var hours = time.getHours();
-            var min = time.getMinutes();
-            var sec = time.getSeconds();
-            return year + "-" + month + "-" + day + " " + hours + ":" + min + ":" + sec;
+            var t = moment(self.createT()).format();
+            return t.substr(0,10)+' '+t.substr(11,8);
+           
         });
     }
 
@@ -116,25 +111,25 @@ define(['knockout', 'text!./prolist.html', 'jquery'], function (ko, templateMark
         self.projectRequirement = ko.observable(data.projectRequirement);
         self.remarks = ko.observable(data.remarks);
 
-        self.salesStage = ko.computed(function(){
+        self.salesStage = ko.computed(function () {
             switch (self.salesSt()) {
                 case '0':
-                return "已流失";
+                    return "已流失";
                 case '1':
-                return "意向阶段-10%";
+                    return "意向阶段-10%";
                 case '2':
-                return "立项阶段-25%";
+                    return "立项阶段-25%";
                 case '3':
-                return "方案阶段-50%";
+                    return "方案阶段-50%";
                 case '4':
-                return "投标阶段-75%";
+                    return "投标阶段-75%";
                 case '5':
-                return "商务阶段-90%";
+                    return "商务阶段-90%";
                 case '6':
-                return "已签约";
+                    return "已签约";
                 default:
-                return "默认";
-                
+                    return "默认";
+
             }
         });
 
@@ -151,7 +146,7 @@ define(['knockout', 'text!./prolist.html', 'jquery'], function (ko, templateMark
                     return "独立项目";
                 case '2':
                     return "混签项目";
-                    default:
+                default:
                     return "缺省项目";
             }
         });
