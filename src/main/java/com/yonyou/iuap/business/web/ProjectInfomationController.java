@@ -2,6 +2,7 @@ package com.yonyou.iuap.business.web;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,12 +11,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yonyou.iuap.auth.shiro.AuthConstants;
 import com.yonyou.iuap.business.dto.PageList;
 import com.yonyou.iuap.business.dto.ProjectDetailDto;
+import com.yonyou.iuap.business.dto.ProjectFollowRecordDto;
 import com.yonyou.iuap.business.dto.ProjectInformationDto;
+import com.yonyou.iuap.business.service.ProjectFollowService;
 import com.yonyou.iuap.business.service.ProjectInformationService;
 import com.yonyou.iuap.common.entity.ResultDTO;
 import com.yonyou.iuap.common.web.BaseController;
+import com.yonyou.iuap.utils.CookieUtil;
 
 /**
  * 项目
@@ -29,6 +34,9 @@ public class ProjectInfomationController extends BaseController {
 
 	@Autowired
 	private ProjectInformationService projectInformationService;
+	
+	@Autowired
+	private ProjectFollowService projectFollowService;
 
 	/**
 	 * 分页
@@ -136,6 +144,28 @@ public class ProjectInfomationController extends BaseController {
 			return super.error("查询失败！");
 		}
 		return resultDTO;
+	}
+	
+	/**
+	 * 添加跟进记录
+	 * @param request
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addRecord", method = RequestMethod.POST)
+	public ResultDTO addRecord(HttpServletRequest request,@RequestBody ProjectFollowRecordDto dto){
+		try {
+			//获取当前登录人的登录名
+			String usercode = CookieUtil.findCookieValue(request.getCookies(),AuthConstants.PARAM_USERNAME);
+			String message = projectFollowService.insertSelective(dto, usercode);
+			if(!StringUtils.isNotBlank(message)){
+				return super.error(message);
+			}
+			return successNoData();
+		} catch (Exception e) {
+			return super.error("系统错误");
+		}
 	}
 
 }

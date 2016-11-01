@@ -191,6 +191,7 @@ public class ProjectInformationServiceImpl implements ProjectInformationService 
 		ProjectInfoVO projectInfoVO = projectInformationMapper.queryByProjectId(projectId);
 		ProjectFollowExample example = new ProjectFollowExample();
 		example.createCriteria().andProjectIdEqualTo(projectId);
+		//查询跟进流程
 		List<ProjectFollow> list = projectFollowMapper.selectByExample(example);
 		dto.setListProjectFollow(list);
 		dto.setProjectInfoVO(projectInfoVO);

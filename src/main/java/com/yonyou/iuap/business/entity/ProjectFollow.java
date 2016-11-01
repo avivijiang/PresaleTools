@@ -15,6 +15,8 @@ public class ProjectFollow {
 
     private Date createTime;
 
+    private String creatorName;
+
     public Long getFollowId() {
         return followId;
     }
@@ -61,5 +63,13 @@ public class ProjectFollow {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName == null ? null : creatorName.trim();
     }
 }
