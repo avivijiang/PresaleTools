@@ -1,70 +1,82 @@
-<div class="role-table">
-	<div class="role-left">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>
-						#
-					</th>
-					<th>
-						角色
-					</th>
-					<th style="color:#eeeeee">
-                        删除
-					</th>
-				</tr>
-			</thead>
-			<tbody data-bind="foreach:roleItemList">
-				<tr data-bind="css: { selected: $data == $parent.chosenFolderId() },
+<ol class="breadcrumb">
+	<li class="active">当前位置</li>
+	<li class="active">角色管理</li>
+</ol>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">角色管理</h3>
+	</div>
+	<div class="panel-body">
+
+		<div class="role-left">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							角色
+						</th>
+						<th style="color:#ffffff">
+							删除
+						</th>
+					</tr>
+				</thead>
+				<tbody data-bind="foreach:roleItemList">
+					<tr class="role-hov" data-bind="css: { selected: $data == $parent.chosenFolderId() },
                    click: $parent.goToFolder">
-					<td data-bind="text:$index()+1">
-					</td>
-					<td>
-						<div data-bind="text:roleId,visible:false"></div>
-						<span data-bind="text:roleName"></span>
+						<td data-bind="text:$index()+1">
+						</td>
+						<td>
+							<div data-bind="text:roleId,visible:false"></div>
+							<span data-bind="text:roleName"></span>
 
-					</td>
-					<td>
-						<span class="glyphicon glyphicon-remove delete-role" data-bind="click:$parent.deleteRole,visible:$data == $parent.chosenFolderId()"></span>
-					</td>
+						</td>
+						<td>
+							<span class="glyphicon glyphicon-remove delete-role" data-bind="click:$parent.deleteRole,visible:$data == $parent.chosenFolderId()"></span>
+						</td>
 
-				</tr>
+					</tr>
 
-			</tbody>
-		</table>
-		<input class="form-control" placeholder="请输入角色名字" data-bind="visible:isAdd,textInput:addRoleName">
-		<textarea class="form-control" rows="3" placeholder="请输入角色描述" data-bind="visible:isAdd,textInput:roleDescription"></textarea>
-		<button style="float:right" class="btn btn-default btn-xs" data-bind="visible:isAdd,click:cancelAddRole"><span class="glyphicon glyphicon-remove"></span></button>
-		<button style="float:right" class="btn btn-primary btn-xs" data-bind="visible:isAdd,click:makeSureRole,disable:(addRoleName()==''||addRoleName==null)"><span class="glyphicon glyphicon-ok"></span></button>
+				</tbody>
+			</table>
+			<input class="form-control" placeholder="请输入角色名字" data-bind="visible:isAdd,textInput:addRoleName">
+			<textarea class="form-control" rows="3" placeholder="请输入角色描述" data-bind="visible:isAdd,textInput:roleDescription"></textarea>
+			<button style="float:right" class="btn btn-default btn-xs" data-bind="visible:isAdd,click:cancelAddRole"><span class="glyphicon glyphicon-remove"></span></button>
+			<button style="float:right" class="btn btn-primary btn-xs" data-bind="visible:isAdd,click:makeSureRole,disable:(addRoleName()==''||addRoleName==null)"><span class="glyphicon glyphicon-ok"></span></button>
 
-		<button  class="btn btn-primary btn-sm" data-bind="click:addRole">新增</button>
+			<button class="btn btn-primary btn-sm" data-bind="click:addRole">新增</button>
+
+		</div>
+
+		<div class="role-right">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							权限
+						</th>
+						<th>
+						</th>
+					</tr>
+				</thead>
+				<tbody data-bind="foreach:permissionList">
+					<tr>
+						<td data-bind="text:permissionName"></td>
+						<td data-bind="text:permissionId,visible:false"></td>
+						<td>
+							<!--input type="checkbox" class="checkbox" data-switch-always data-bind="checked:ischosenP"-->
+							<input type="checkbox" data-bind="checked:ischosenP">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button class="btn btn-success" data-bind="click:setPermission"> 保存</button>
+			<button class="btn btn-default" data-bind="click:resetPermission"> 还原</button>
+		</div>
+
+
 
 	</div>
-
-	<div class="role-right">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>
-						权限
-					</th>
-					<th>
-					</th>
-				</tr>
-			</thead>
-			<tbody data-bind="foreach:permissionList">
-				<tr>
-					<td data-bind="text:permissionName"></td>
-					<td data-bind="text:permissionId,visible:false"></td>
-					<td><!--input type="checkbox" class="checkbox" data-switch-always data-bind="checked:ischosenP"-->
-					    <input type="checkbox" data-bind="checked:ischosenP"> 
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<button class="btn btn-success" data-bind="click:setPermission"> 保存</button>
-		<button class="btn btn-default" data-bind="click:resetPermission"> 还原</button>
-	</div>
-
-
 </div>

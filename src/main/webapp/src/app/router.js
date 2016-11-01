@@ -11,7 +11,8 @@ define(["knockout", "crossroads", "hasher"], function (ko, crossroads, hasher) {
 
     return new Router({
         routes: [
-            { url: '', params: { page: 'home-page' } },
+            // 项目管理界面
+            { url: '', params: { page: 'project-view' } },
             { url: 'about', params: { page: 'about-page' } },
             // 用户管理页面
             { url: 'user-management', params: { page: 'user-management' } },
@@ -19,7 +20,6 @@ define(["knockout", "crossroads", "hasher"], function (ko, crossroads, hasher) {
             { url: 'user-management/adduser', params: { page: 'add-user' } },
             // 角色分配权限界面
             { url: 'role-management', params: { page: 'role-management' } },
-            { url: 'project-view', params: { page: 'project-view' } },
         ]
     });
 

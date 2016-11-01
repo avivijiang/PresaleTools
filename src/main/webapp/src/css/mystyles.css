@@ -6,19 +6,18 @@
     border: 1px solid #dee1e2;
     border-radius: 2px ;
 }
-.role-table .role-left{
+.role-left{
     padding:0 10px;
     width:30%;
     float:left;
     font-size:16px;
     height:400px;
-    background:#eeeeee;
-    border:1px solid #dee1e2;
+    border-right:1px solid #dee1e2;
 }
-.role-table .role-left table{
+.role-left table{
     border-bottom:1px solid #dee1e2; 
 }
-.role-table .role-right{
+.role-right{
     padding:0 50px;
     width:70%;
     float:right;
@@ -35,10 +34,21 @@
 .delete-role:active{
     color: #ff0000;
 }
-.selected{
-    background: #8778ff;
+.role-hov:hover{
     color:#333333;
+}
+.selected{
+    background: #357ebd;
+    color:#ffffff;
 }
 .projectdetials{
     padding-top:7px; 
+}
+.projectList{
+    background:#eeeeee; 
+}
+.profollow{
+    list-style:none;
+    padding-left:40%;
+    line-height:30px;
 }
