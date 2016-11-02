@@ -17,7 +17,7 @@ public interface ProjectInformationService {
 
 	public void deleteByExample(ProjectInformation record) throws Exception;
 	
-	public PageList querPage(int index,int pageSize,long regionId)throws Exception;
+	public PageList querPage(int index,int pageSize,long regionId,String projectName)throws Exception;
 	
 	public void insertProjectInformation(ProjectInformationDto dto)throws Exception;
 	
