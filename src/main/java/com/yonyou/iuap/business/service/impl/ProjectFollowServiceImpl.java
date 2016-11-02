@@ -12,7 +12,7 @@ import com.yonyou.iuap.business.dto.ProjectFollowRecordDto;
 import com.yonyou.iuap.business.entity.ProjectFollow;
 import com.yonyou.iuap.business.entity.ProjectFollowExample;
 import com.yonyou.iuap.business.entity.ProjectInformation;
-import com.yonyou.iuap.business.mapper.sub.SubProjectFollowMapper;
+import com.yonyou.iuap.business.mapper.ProjectFollowMapper;
 import com.yonyou.iuap.business.mapper.sub.SubProjectInformationMapper;
 import com.yonyou.iuap.business.service.ProjectFollowService;
 import com.yonyou.iuap.system.entity.SystemUserInfo;
@@ -29,7 +29,7 @@ import com.yonyou.iuap.system.mapper.sub.SubSystemUserInfoMapper;
 public class ProjectFollowServiceImpl implements ProjectFollowService {
 
 	@Autowired
-	private SubProjectFollowMapper projectFollowMapper;
+	private ProjectFollowMapper projectFollowMapper;
 
 	@Autowired
 	private SubProjectInformationMapper projectInformationMapper;

@@ -19,9 +19,9 @@ import com.yonyou.iuap.business.entity.ProjectFollowExample;
 import com.yonyou.iuap.business.entity.ProjectInfoVO;
 import com.yonyou.iuap.business.entity.ProjectInformation;
 import com.yonyou.iuap.business.entity.ProjectInformationExample;
+import com.yonyou.iuap.business.mapper.ProjectFollowMapper;
 import com.yonyou.iuap.business.mapper.sub.SubBranchcompanyProjectRelationMapper;
 import com.yonyou.iuap.business.mapper.sub.SubCustomerProjectRelationMapper;
-import com.yonyou.iuap.business.mapper.sub.SubProjectFollowMapper;
 import com.yonyou.iuap.business.mapper.sub.SubProjectInformationMapper;
 import com.yonyou.iuap.business.service.ProjectInformationService;
 
@@ -40,7 +40,7 @@ public class ProjectInformationServiceImpl implements ProjectInformationService 
 	private SubBranchcompanyProjectRelationMapper branchcompanyProjectRelationMapper;
 	
 	@Autowired
-	private SubProjectFollowMapper projectFollowMapper;
+	private ProjectFollowMapper projectFollowMapper;
 	
 	@Autowired
 	private SubCustomerProjectRelationMapper customerProjectRelationMapper;
