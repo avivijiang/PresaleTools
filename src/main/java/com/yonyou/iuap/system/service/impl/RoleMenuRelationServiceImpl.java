@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yonyou.iuap.system.entity.RoleMenuRelation;
 import com.yonyou.iuap.system.entity.RoleMenuRelationExample;
 import com.yonyou.iuap.system.entity.SystemMenu;
+import com.yonyou.iuap.system.entity.SystemMenuExample;
 import com.yonyou.iuap.system.mapper.sub.SubRoleMenuRelationMapper;
 import com.yonyou.iuap.system.mapper.sub.SubSystemMenuMapper;
 import com.yonyou.iuap.system.service.RoleMenuRelationService;
@@ -73,6 +74,16 @@ public class RoleMenuRelationServiceImpl implements RoleMenuRelationService {
 	 */
 	public List<SystemMenu> queryRoleMenu(String loginName)throws Exception {
 		return systemMenuMapper.queryRoleMenu(loginName);
+	}
+	/**
+	 * 根据用户登录名查询菜单
+	 * @param loginName
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SystemMenu> queryAllMenu()throws Exception {
+		SystemMenuExample systemMenuExample = new SystemMenuExample();
+		return systemMenuMapper.selectByExample(systemMenuExample);
 	}
 	
 }

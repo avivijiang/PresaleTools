@@ -17,4 +17,6 @@ public interface RoleMenuRelationService {
 	
 	public List<SystemMenu> queryRoleMenu(String loginName)throws Exception;
 	
+	public List<SystemMenu> queryAllMenu()throws Exception;
+	
 }

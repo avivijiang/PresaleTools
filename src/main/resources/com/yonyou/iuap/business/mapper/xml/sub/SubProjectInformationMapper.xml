@@ -35,8 +35,26 @@
     <if test="regionId != 0" >
     	AND e.region_id = #{regionId,jdbcType=BIGINT}
     </if>
-    ORDER BY d.region_name
+    <if test="projectName != '' " >
+    	AND a.project_name like #{projectName,jdbcType=VARCHAR}
+    </if>
+    ORDER BY d.region_name,a.project_id
     LIMIT #{index,jdbcType=BIGINT},#{pageSize,jdbcType=BIGINT}
+  	</select>
+  	
+	<select id="queryCount" parameterType="com.yonyou.iuap.business.entity.ProjectInfoVO" resultType="java.lang.Integer">
+    select COUNT(a.project_id)
+    FROM
+    the_project_table a,branch_company_table b,branchcompany_project_relation c,region_table d,region_branch_relation e,
+    customer_project_relation f,customer_table g
+    WHERE a.project_id=c.project_id AND c.branch_id=b.branch_id AND b.branch_id=e.branch_id AND e.region_id=d.region_id 
+    AND a.project_id=f.project_id AND f.customer_id=g.customer_id
+    <if test="regionId != 0" >
+    	AND e.region_id = #{regionId,jdbcType=BIGINT}
+    </if>
+    <if test="projectName != '' " >
+    	AND a.project_name like #{projectName,jdbcType=VARCHAR}
+    </if>
   	</select>
   	
   	<select id="queryByProjectId" resultMap="SubBaseResultMap" parameterType="com.yonyou.iuap.business.entity.ProjectInfoVO" >

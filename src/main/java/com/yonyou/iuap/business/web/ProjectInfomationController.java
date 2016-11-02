@@ -51,11 +51,13 @@ public class ProjectInfomationController extends BaseController {
 	public ResultDTO query(HttpServletRequest request,
 			@RequestParam(value = "pageIndex", defaultValue = "0") int pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-			@RequestParam(value = "regionId", defaultValue = "1") long regionId) {
+			@RequestParam(value = "regionId", defaultValue = "1") long regionId,
+			@RequestParam(value = "projectName", defaultValue = "") String projectName) {
 		try {
-			PageList pageList = projectInformationService.querPage(pageNumber, pageSize, regionId);
+			PageList pageList = projectInformationService.querPage(pageNumber, pageSize, regionId,projectName);
 			return super.success(pageList);
 		} catch (Exception e) {
+			System.out.println(e);
 			logger.error("查询出错!");
 			return super.error("查询出错!");
 		}
@@ -167,5 +169,6 @@ public class ProjectInfomationController extends BaseController {
 			return super.error("系统错误");
 		}
 	}
+	
 
 }
