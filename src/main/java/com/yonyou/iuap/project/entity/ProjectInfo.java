@@ -2,8 +2,6 @@ package com.yonyou.iuap.project.entity;
 
 import java.util.Date;
 
-import com.yonyou.iuap.customer.entity.SalesCustomers;
-
 public class ProjectInfo {
     private Long projectId;
 
