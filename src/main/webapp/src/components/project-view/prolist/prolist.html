@@ -104,7 +104,7 @@
 										<span data-bind="text:record"></span>
 									</li>
 								</ul>
-								
+
 							</div>
 						</form>
 					</td>
@@ -116,17 +116,20 @@
 								<label for="inputEmail3" class="col-sm-12 control-label" style="text-align:center;">下一步计划</label>
 								<ul class="col-sm-12">
 									<li class="profollow">
-										<span data-bind="text:nextStepInfo().nextStep">
-							</li>
-						
-						</ul>
-					</div>
-				</form>
-			</td>
-		</tr>
-		<!-- /ko -->
-	</tbody>
-</table>
+										<!--span data-bind="text:nextStepInfo().nextStep"-->
+									</li>
 
+								</ul>
+							</div>
+						</form>
+					</td>
+				</tr>
+				<!-- /ko -->
+			</tbody>
+		</table>
+		<button class="btn btn-info" data-bind="click:lastpage,disable:pageIndex()==0"><</button>
+		<button class="btn btn-info" data-bind="click:nextpage,enable:pageIndex()<pageNum()">></button>
+		<span style="padding-left:20px"><button class="btn btn-info" style="width:40px;height:28px;padding:0 0 0 1px;" data-bind="click:turnToPage,disable:(gopage()==''||gopage()==null||gopage()>(pageNum()+1)||gopage()<1)">跳到</button><input type="number"" class="gopage" data-bind="textInput:gopage">页</span>
+		<span style="padding-left:20px">共<span data-bind="text:pageNum()+1"></span>页</span>
 	</div>
 </div>

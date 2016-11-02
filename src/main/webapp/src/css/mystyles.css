@@ -52,3 +52,13 @@
     padding-left:40%;
     line-height:30px;
 }
+.gopage{
+    border-radius:1px;
+    width:50px;
+}
+.buttongopage{
+    background-color: #5bc0de;
+    border-color: #28a4c9;
+    border-radius: 4px ;
+    color:#ffffff;
+}

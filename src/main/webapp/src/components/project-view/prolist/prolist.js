@@ -5,10 +5,34 @@ define(['knockout', 'text!./prolist.html', 'jquery', 'moment'], function (ko, te
         //项目列表
         self.projectList = ko.observableArray([]);
         //分页信息
-        self.pageIndex = ko.observable();
+        self.pageIndex = ko.observable(0);
         self.pageSize = ko.observable();
         self.pageNum = ko.observable();
-
+        self.gopage = ko.observable("");
+        //页面跳转
+        self.lastpage = function () {
+            self.pageIndex(self.pageIndex() - 1);
+            self.loadProject(self.pageIndex());
+        }
+        self.nextpage = function () {
+            self.pageIndex(self.pageIndex() + 1);
+            self.loadProject(self.pageIndex());
+        }
+        self.turnToPage = function () {
+            self.pageIndex(self.gopage() - 1);
+            self.loadProject(self.pageIndex());
+        }
+        self.pressToPage = function (e) {
+            var keyCode ;
+            if (e.which)
+                keyCode = e.which;
+            else if (e.keyCode)
+                keyCode = e.keyCode;
+            if (keyCode == 13) {
+                self.pageIndex(self.gopage() - 1);
+                self.loadProject(self.pageIndex());
+            }
+        }
 
         //显示详情
         self.showDetial = function (chosenData) {
@@ -23,6 +47,7 @@ define(['knockout', 'text!./prolist.html', 'jquery', 'moment'], function (ko, te
                             $.each(data.data.listProjectFollow, function (index, value) {
                                 chosenData.projectFollow.push(new ProjectFollowModel(value));
                                 chosenData.nextStepArray.push(new ProjectFollowModel(value));
+
                                 chosenData.nextStepInfo(chosenData.nextStepArray.pop());
                             });
                             chosenData.detailsEnabled(true);
@@ -40,7 +65,7 @@ define(['knockout', 'text!./prolist.html', 'jquery', 'moment'], function (ko, te
 
         //读取项目信息
         self.loadProject = function (index) {
-            var url = globle_var.ctx + '/project/query';
+            var url = globle_var.ctx + '/project/query?pageIndex=' + index + '&pageSize=' + 5 + '&regionId=' + 0;
             var pdata = {
                 "pageIndex": index,
                 "pageSize": 5,
@@ -54,9 +79,11 @@ define(['knockout', 'text!./prolist.html', 'jquery', 'moment'], function (ko, te
                 data: postdata,
                 contentType: 'application/json',
                 success: function (data) {
+                    self.projectList.removeAll();
                     $.each(data.data.palist, function (index, value) {
                         self.projectList.push(new ProjectViewModel(value));
                     });
+                    self.pageNum(Math.floor((data.data.pageNum) / 5));
                 }
             });
         }
@@ -82,8 +109,8 @@ define(['knockout', 'text!./prolist.html', 'jquery', 'moment'], function (ko, te
 
         self.createTime = ko.computed(function () {
             var t = moment(self.createT()).format();
-            return t.substr(0,10)+' '+t.substr(11,8);
-           
+            return t.substr(0, 10) + ' ' + t.substr(11, 8);
+
         });
     }
 
